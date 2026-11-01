@@ -39,8 +39,9 @@ export function TextFlow({ state, update, reset, model }: Props) {
   const outSegs = useMemo(() => segments(text, findings, new Vault(working.vault.entries())), [text, findings, working]);
   const restored = useMemo(() => restore(reply, working.vault), [reply, working]);
 
-  const counts = { secret: 0, personal: 0, name: 0 };
-  for (const f of findings) counts[f.category]++;
+  const unique = { secret: new Set<string>(), personal: new Set<string>(), name: new Set<string>() };
+  for (const f of findings) unique[f.category].add(f.value);
+  const counts = { secret: unique.secret.size, personal: unique.personal.size, name: unique.name.size };
 
   const commit = () => update({ vault: working.vault.entries() });
 
@@ -80,10 +81,10 @@ export function TextFlow({ state, update, reset, model }: Props) {
             <div className="pane-title">
               Safe to send
               <span className="stats">
-                <b className="c-secret">{counts.secret}</b> secrets · <b className="c-personal">{counts.personal}</b> personal ·{" "}
+                <b className="c-secret">{counts.secret}</b> {counts.secret === 1 ? "secret" : "secrets"} · <b className="c-personal">{counts.personal}</b> personal ·{" "}
                 {state.useModel ? (
                   <>
-                    <b className="c-name">{counts.name}</b> names
+                    <b className="c-name">{counts.name}</b> {counts.name === 1 ? "name" : "names"}
                   </>
                 ) : (
                   <span className="muted">names off</span>
