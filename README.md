@@ -12,6 +12,7 @@ Ask the AI anything without handing it your secrets.
 - Swaps each one for a stable placeholder like `<GITHUB_TOKEN_1>`, so ChatGPT, Claude or Gemini can still reason about the text ("`<PASSWORD_1>` is wrong for `<IP_ADDRESS_1>`").
 - Paste the AI's reply back and Unsaid puts your real values back in, only on your screen.
 - Redacts screenshots: reads the text with on-device OCR and covers each secret with a labeled box, ready to download.
+- Audits your ChatGPT or Claude data export: lists every key you already pasted into a chat, which chats, when, and a link to revoke it.
 - Optional on-device language model (DistilBERT NER) to hide names, companies and places.
 - Runs entirely in the browser tab. No account, no server, no analytics. The header shows a live count of requests to other sites.
 
@@ -25,7 +26,7 @@ Fastest path: click **.env file** under step 1, then paste this into step 2:
 Keep <OPENAI_KEY_1> server-side and email <EMAIL_1> if it needs rotating.
 ```
 
-The restored panel shows the real key and email. For screenshots, open the **Screenshot** tab and click **Try a sample screenshot**.
+The restored panel shows the real key and email. For screenshots, open the **Screenshot** tab and click **Try a sample screenshot**. For the audit, open **Audit my chats** and click **Try a sample ChatGPT export** (14 synthetic chats, 8 leaked keys).
 
 Run it locally (Node 20+):
 
@@ -42,16 +43,18 @@ paste ──► 43 rules, 32 data types (prefixes, checksums, context) ───
       └─► DistilBERT NER in a Web Worker (optional) ───────────────────┼─► resolve overlaps ─► Vault ─► masked text
 image ──► Tesseract OCR (grayscale, invert, 2x) ─► same detectors ─────┘                       │
 AI reply ─────────────────────────────────────────────────────────────────────────────────────► restore
+chat export (.zip/.json) ─► your messages only ─► same detectors ─► grouped by value, ranked, revoke links
 ```
 
 - **Detectors** (`src/core/rules.ts`): provider-specific key formats (AWS, GitHub, Stripe, OpenAI, Anthropic, Slack, Google, Hugging Face, npm, SendGrid, Twilio and more), context rules for `password=`, `--token`, `Authorization:`, cookies, connection strings and URL query secrets, plus Luhn (cards), mod-97 (IBAN), SSN ranges and IPv4/IPv6 validation. A Shannon-entropy fallback catches unknown tokens while skipping git SHAs, UUIDs, hashes and base64 images.
-- **Vault** (`src/core/mask.ts`): each distinct value gets one placeholder per session, so the same key is always `<STRIPE_KEY_1>`. Restore tolerates the ways models rewrite placeholders (`[EMAIL_1]`, `EMAIL_1`, `&lt;EMAIL_1&gt;`). The vault lives in `sessionStorage` and disappears when you close the tab.
+- **Vault** (`src/core/mask.ts`): each distinct value gets one placeholder per session, so the same key is always `<STRIPE_KEY_1>`. Restore tolerates the ways models rewrite placeholders (`[EMAIL_1]`, `EMAIL_1`, `&lt;EMAIL_1&gt;`). The vault and your text live in `sessionStorage` (plain text, this tab only) and disappear when you close the tab or press Clear.
 - **Names** (`src/workers/ner.worker.ts`): Transformers.js runs a quantized DistilBERT NER model on ONNX Runtime Web, off the main thread.
+- **Audit** (`src/core/audit.ts`): parses ChatGPT (`mapping` tree) and Claude (`chat_messages`) exports, unzips in the browser with fflate, scans only user messages, and groups each leaked value with its chats and first/last dates.
 - **Screenshots** (`src/lib/ocr.ts`): Tesseract.js reads words with bounding boxes, words split by OCR are re-joined by pixel gap, and findings map back to boxes drawn on a canvas.
 
 ### Accuracy
 
-Measured on two synthetic corpora written by separate authors who never saw the detector code (`bench/`). Real-looking fake secrets plus decoys: git SHAs, UUIDs, package-lock hashes, version numbers, placeholders, Luhn-failing card numbers.
+Measured on two synthetic corpora (`bench/`), each produced by its own generator script that was written without access to the detector source. Real-looking fake secrets plus decoys: git SHAs, UUIDs, package-lock hashes, version numbers, placeholders, Luhn-failing card numbers.
 
 | Set | Cases | Precision | Recall |
 |---|---|---|---|
@@ -68,7 +71,7 @@ npm run fetch-model && npm run bench  # also scores rules + NER
 
 ## Built with
 
-TypeScript, React 19, Vite, Transformers.js (ONNX Runtime Web), Tesseract.js, Vitest, Playwright. NER model: [dslim/distilbert-NER](https://huggingface.co/dslim/distilbert-NER) via [onnx-community/distilbert-NER-ONNX](https://huggingface.co/onnx-community/distilbert-NER-ONNX).
+TypeScript, React 19, Vite, Transformers.js (ONNX Runtime Web), Tesseract.js, fflate, Vitest, Playwright. NER model: [dslim/distilbert-NER](https://huggingface.co/dslim/distilbert-NER) via [onnx-community/distilbert-NER-ONNX](https://huggingface.co/onnx-community/distilbert-NER-ONNX).
 
 ## License
 

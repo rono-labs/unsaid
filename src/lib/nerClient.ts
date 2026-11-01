@@ -4,18 +4,24 @@ type Msg =
   | { id: number; kind: "ready" }
   | { id: number; kind: "result"; findings: Finding[] }
   | { id: number; kind: "error"; message: string }
-  | { kind: "progress"; progress: number };
+  | { kind: "progress"; progress: number }
+  | { kind: "hosts"; hosts: string[] };
 
 let worker: Worker | null = null;
 let nextId = 1;
 const pending = new Map<number, { resolve: (v: Finding[]) => void; reject: (e: Error) => void }>();
 const progressListeners = new Set<(p: number) => void>();
+const hostListeners = new Set<(hosts: string[]) => void>();
 
 function getWorker(): Worker {
   if (worker) return worker;
   worker = new Worker(new URL("../workers/ner.worker.ts", import.meta.url), { type: "module" });
   worker.onmessage = (e: MessageEvent<Msg>) => {
     const msg = e.data;
+    if (msg.kind === "hosts") {
+      hostListeners.forEach((fn) => fn(msg.hosts));
+      return;
+    }
     if (msg.kind === "progress") {
       progressListeners.forEach((fn) => fn(msg.progress));
       return;
@@ -43,5 +49,12 @@ export function onNerProgress(fn: (p: number) => void) {
   progressListeners.add(fn);
   return () => {
     progressListeners.delete(fn);
+  };
+}
+
+export function onWorkerHosts(fn: (hosts: string[]) => void) {
+  hostListeners.add(fn);
+  return () => {
+    hostListeners.delete(fn);
   };
 }

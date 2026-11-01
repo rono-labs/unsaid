@@ -43,7 +43,7 @@ test("crash log keeps paths and IPs consistent", async ({ page }) => {
   await expect(out).toContainText("/home/<USERNAME_1>/projects");
   await expect(out).toContainText("<STRIPE_KEY_1>");
   await expect(out).toContainText("<PASSWORD_1>@<IP_ADDRESS_1>");
-  await page.getByRole("button", { name: "Let AI see" }).first().click();
+  await page.getByRole("button", { name: "Unmask" }).first().click();
   await expect(page.getByRole("button", { name: "Hide" })).toHaveCount(1);
 });
 

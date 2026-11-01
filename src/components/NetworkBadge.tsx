@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { onWorkerHosts } from "../lib/nerClient";
 
 export function NetworkBadge() {
   const [foreign, setForeign] = useState<string[]>([]);
@@ -15,7 +16,14 @@ export function NetworkBadge() {
     check(performance.getEntriesByType("resource"));
     const obs = new PerformanceObserver((list) => check(list.getEntries()));
     obs.observe({ type: "resource", buffered: true });
-    return () => obs.disconnect();
+    const off = onWorkerHosts((hosts) => {
+      hosts.forEach((h) => seen.add(h));
+      setForeign([...seen]);
+    });
+    return () => {
+      obs.disconnect();
+      off();
+    };
   }, []);
 
   const clean = foreign.length === 0;

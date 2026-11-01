@@ -123,3 +123,4 @@ mark.restored { background: #dcfce7; color: #14532d; border-radius: 3px; box-sha
 .audit-list a.btn { text-decoration: none; white-space: nowrap; }
 .audit-list li.sev-secret { border-left: 4px solid var(--secret); }
 .audit-list li.sev-personal { border-left: 4px solid var(--personal); }
+.hint { font-size: 13px; color: var(--muted); border: 1px dashed var(--line); border-radius: 8px; padding: 6px 10px; white-space: nowrap; }

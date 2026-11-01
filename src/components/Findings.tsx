@@ -14,7 +14,7 @@ const CATEGORY_NAME: Record<Category, string> = { secret: "Secrets", personal: "
 
 export function preview(v: string): string {
   const flat = v.replace(/\s+/g, " ");
-  if (flat.length <= 10) return flat.slice(0, 2) + "•".repeat(Math.max(1, flat.length - 2));
+  if (flat.length <= 12) return `${flat.slice(0, 2)}•••`;
   return `${flat.slice(0, 4)}…${flat.slice(-3)}`;
 }
 
@@ -59,8 +59,12 @@ export function Findings({ findings, tagFor, allowed, onToggle, custom, onCustom
                     {preview(i.value)}
                     {i.count > 1 && <span className="muted"> ×{i.count}</span>}
                   </span>
-                  <button className="link" onClick={() => onToggle(i.value)}>
-                    {shown ? "Hide" : "Let AI see"}
+                  <button
+                    className="link"
+                    title={shown ? "Replace with a placeholder again" : "Send the real value to the AI"}
+                    onClick={() => onToggle(i.value)}
+                  >
+                    {shown ? "Hide" : "Unmask"}
                   </button>
                 </li>
               );

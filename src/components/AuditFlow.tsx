@@ -138,7 +138,7 @@ export function AuditFlow() {
                       {rotate.label}
                     </a>
                   ) : it.category === "secret" ? (
-                    <span className="muted small">Change it where it is used</span>
+                    <span className="hint">Change it where it is used</span>
                   ) : null}
                 </li>
               );

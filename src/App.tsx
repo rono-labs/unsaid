@@ -54,7 +54,10 @@ export default function App() {
       {tab === "audit" && <AuditFlow />}
 
       <footer className="foot">
-        <span>No account, no server, no analytics. Your text never leaves this browser tab.</span>
+        <span>
+          No account, no server, no analytics. Your text and the placeholder map stay in this tab's session storage until you
+          close it or press Clear.
+        </span>
         {REPO_URL && (
           <a href={REPO_URL} target="_blank" rel="noreferrer">
             Source on GitHub

@@ -48,6 +48,8 @@ self.onmessage = async (e: MessageEvent<{ id: number; kind: "load" | "run"; text
   try {
     const ner = await load();
     if (kind === "load") {
+      const hosts = performance.getEntriesByType("resource").map((e) => new URL(e.name).host);
+      postMessage({ kind: "hosts", hosts: [...new Set(hosts)].filter((h) => h && h !== self.location.host) });
       postMessage({ id, kind: "ready" });
       return;
     }

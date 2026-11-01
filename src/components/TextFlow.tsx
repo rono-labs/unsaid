@@ -81,7 +81,13 @@ export function TextFlow({ state, update, reset, model }: Props) {
               Safe to send
               <span className="stats">
                 <b className="c-secret">{counts.secret}</b> secrets · <b className="c-personal">{counts.personal}</b> personal ·{" "}
-                <b className="c-name">{counts.name}</b> names
+                {state.useModel ? (
+                  <>
+                    <b className="c-name">{counts.name}</b> names
+                  </>
+                ) : (
+                  <span className="muted">names off</span>
+                )}
               </span>
             </div>
             <pre className="output" data-testid="masked-output">
@@ -130,6 +136,19 @@ export function TextFlow({ state, update, reset, model }: Props) {
           <h2>
             <span className="num">2</span> Paste the AI's reply to put your real values back
           </h2>
+          {working.vault.size > 0 && (
+            <div className="samples">
+              <button
+                className="btn btn-ghost"
+                onClick={() => {
+                  commit();
+                  update({ reply: exampleReply(working.vault.entries().map((e) => e.tag)) });
+                }}
+              >
+                Use an example reply
+              </button>
+            </div>
+          )}
         </div>
         <div className="panes">
           <div className="pane">
@@ -168,6 +187,17 @@ export function TextFlow({ state, update, reset, model }: Props) {
       </section>
     </>
   );
+}
+
+function exampleReply(tags: string[]): string {
+  const pick = (prefix: string) => tags.find((t) => t.startsWith(prefix));
+  const secret = tags.find((t) => !/^(EMAIL|PHONE|PERSON|ORG|LOCATION|IP_ADDRESS|USERNAME)_/.test(t)) ?? tags[0];
+  const contact = pick("EMAIL_") ?? pick("PERSON_") ?? pick("PHONE_");
+  const host = pick("IP_ADDRESS_");
+  const lines = [`The error comes from <${secret}>. It is being rejected, so generate a new one and keep it out of source control.`];
+  if (host) lines.push(`Also check that <${host}> accepts connections from your machine.`);
+  if (contact) lines.push(`Once it's rotated, let <${contact}> know so nobody keeps using the old value.`);
+  return lines.join("\n\n");
 }
 
 function renderRestored(r: ReturnType<typeof restore>) {
