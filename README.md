@@ -85,9 +85,10 @@ MIT. See [LICENSE](LICENSE).
 ## Development
 
 ```bash
-npm test           # unit tests and benchmark
-npx playwright test  # end-to-end tests against a production build (run npm run build first)
-npm run build      # static site in dist/, deploy to any static host
+npm test             # unit tests and benchmark
+npm run fetch-model  # the NER end-to-end test uses the locally served model
+npm run build        # static site in dist/, deploy to any static host
+npx playwright test  # end-to-end tests against the production build
 ```
 
 See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for the project layout and deployment notes.
