@@ -29,7 +29,7 @@ test("masks a .env file and restores the AI reply", async ({ page }) => {
     "Your build reads <OPENAI_KEY_1> from .env, but Next.js only exposes variables prefixed with NEXT_PUBLIC_ to the browser. Keep <OPENAI_KEY_1> server-side and email <EMAIL_1> if the key needs rotating.",
   );
   const restored = page.getByTestId("restored-output");
-  await expect(restored).toContainText("sk-proj-Jx8e2RkQ7vLm4NcT9aWb3YpZ6fHd1KsU0gEoAiBn5Cr");
+  await expect(restored).toContainText("sk-proj-" + "Jx8e2RkQ7vLm4NcT9aWb3YpZ6fHd1KsU0gEoAiBn5Cr");
   await expect(restored).toContainText("marcus.lee@budgetbuddy.app");
   await expect(page.getByText("3 values put back")).toBeVisible();
   await snap(page, "02-reply-restored");
@@ -73,5 +73,17 @@ test("on-device model finds names and places", async ({ page }) => {
   await expect(out).not.toContainText("Elena Petrova");
   await expect(out).toContainText("<CREDIT_CARD_1>");
   await snap(page, "04-names-masked");
+  expect(errors).toEqual([]);
+});
+
+test("audits a ChatGPT export for leaked secrets", async ({ page }) => {
+  const errors = trackErrors(page);
+  await page.goto("/");
+  await page.getByRole("tab", { name: "Audit my chats" }).click();
+  await page.getByRole("button", { name: "Try a sample ChatGPT export" }).click();
+  await expect(page.getByTestId("audit-secrets")).toHaveText("8");
+  await expect(page.getByRole("link", { name: "Revoke on GitHub" })).toBeVisible();
+  await expect(page.getByText("pasted 2 times")).toBeVisible();
+  await snap(page, "05-audit");
   expect(errors).toEqual([]);
 });

@@ -471,7 +471,8 @@ build: {sha1()[:10]}
 password: ${{SMTP_PASSWORD}}""", [(hip, "IP_ADDRESS"), (cs, "SECRET"), (pw3, "PASSWORD"), ("no-reply@trellis-app.io", "EMAIL")])
 
 here = os.path.dirname(os.path.abspath(__file__))
-with open(os.path.join(here, "cases.json"), "w") as f: json.dump(cases, f, indent=1)
+import gzip
+with gzip.GzipFile(os.path.join(here, "cases.json.gz"), "wb", mtime=0) as f: f.write(json.dumps(cases, indent=1).encode())
 
 # ---- verify
 cnt = collections.Counter()

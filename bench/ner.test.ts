@@ -1,4 +1,5 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { gunzipSync } from "node:zlib";
 import { fileURLToPath } from "node:url";
 import { env, pipeline, type TokenClassificationPipeline } from "@huggingface/transformers";
 import { test } from "vitest";
@@ -17,7 +18,7 @@ test.skipIf(!hasModel)("rules + on-device NER on both corpora", async () => {
   const ner = (await pipeline("token-classification", MODEL, { dtype: "q8" })) as TokenClassificationPipeline;
   const results: Record<string, unknown> = {};
   for (const name of ["corpus", "test"]) {
-    const cases: Case[] = JSON.parse(readFileSync(new URL(`./${name}/cases.json`, import.meta.url), "utf8"));
+    const cases: Case[] = JSON.parse(gunzipSync(readFileSync(new URL(`./${name}/cases.json.gz`, import.meta.url))).toString("utf8"));
     const extra = new Map<string, Finding[]>();
     for (const c of cases) {
       const found: Finding[] = [];

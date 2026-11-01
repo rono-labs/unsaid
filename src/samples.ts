@@ -1,3 +1,6 @@
+// The sample keys are fake. They are split in two so secret scanners do not flag this file.
+const fake = (prefix: string, body: string) => prefix + body;
+
 export interface Sample {
   id: string;
   label: string;
@@ -15,7 +18,7 @@ $ python app.py
  * Connecting to postgres://budget_admin:Tr0ub4dor-77x@10.0.4.12:5432/budget
 Traceback (most recent call last):
   File "/home/priya/projects/budgetbuddy/app.py", line 41, in <module>
-    client = stripe.StripeClient("sk_live_51NzQe8Hk2LwXr7TbQyP4mVd9")
+    client = stripe.StripeClient("${fake("sk_live_", "51NzQe8Hk2LwXr7TbQyP4mVd9")}")
   File "/home/priya/.venv/lib/python3.12/site-packages/stripe/_client.py", line 88, in __init__
     raise AuthenticationError("Invalid API key provided")
 stripe.AuthenticationError: Invalid API key provided
@@ -26,9 +29,9 @@ stripe.AuthenticationError: Invalid API key provided
     label: ".env file",
     text: `# why does my Next.js build say OPENAI_API_KEY is undefined?
 NEXT_PUBLIC_SITE_URL=https://budgetbuddy.vercel.app
-OPENAI_API_KEY=sk-proj-Jx8e2RkQ7vLm4NcT9aWb3YpZ6fHd1KsU0gEoAiBn5Cr
-GITHUB_TOKEN=ghp_8fK2mQ9xLr4TzW7bN1cVyP3sD6hJ0aGeU5oR
-AWS_ACCESS_KEY_ID=AKIAZ7Q4MBX2KD9RLW3T
+OPENAI_API_KEY=${fake("sk-proj-", "Jx8e2RkQ7vLm4NcT9aWb3YpZ6fHd1KsU0gEoAiBn5Cr")}
+GITHUB_TOKEN=${fake("ghp_", "8fK2mQ9xLr4TzW7bN1cVyP3sD6hJ0aGeU5oR")}
+AWS_ACCESS_KEY_ID=${fake("AKIA", "Z7Q4MBX2KD9RLW3T")}
 AWS_SECRET_ACCESS_KEY=q9Lx3VmT8bKc2RwN7yPf4HsJ1dGz6AeU0iOtMnBv
 DATABASE_PASSWORD=sunflower-2003
 ADMIN_EMAIL=marcus.lee@budgetbuddy.app

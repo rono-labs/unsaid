@@ -1,18 +1,16 @@
 import { readFileSync, writeFileSync } from "node:fs";
+import { gunzipSync } from "node:zlib";
 import { expect, test } from "vitest";
 import { detect } from "../src/core/detect";
 import { isRuleType, score, type Case } from "./score";
 
-const file = process.env.BENCH_CORPUS ?? new URL("./corpus/cases.json", import.meta.url).pathname;
-const cases: Case[] = JSON.parse(readFileSync(file, "utf8"));
+const load = (name: string): Case[] =>
+  JSON.parse(gunzipSync(readFileSync(new URL(`./${name}/cases.json.gz`, import.meta.url))).toString("utf8"));
 
-test("rule detector on benchmark corpus", () => {
+test.each(["corpus", "test"])("rule detectors on %s", (name) => {
+  const cases = load(name);
   const s = score(cases, (t) => detect(t), isRuleType);
-  const out = process.env.BENCH_OUT;
-  if (out) writeFileSync(out, JSON.stringify(s, null, 2));
-  console.log(
-    `cases=${cases.length} tp=${s.tp} fn=${s.fn} fp=${s.fp} precision=${s.precision.toFixed(3)} recall=${s.recall.toFixed(3)} f1=${s.f1.toFixed(3)}`,
-  );
+  if (process.env.BENCH_OUT) writeFileSync(`${process.env.BENCH_OUT}-${name}.json`, JSON.stringify(s, null, 2));
   expect(s.recall).toBeGreaterThan(0.9);
   expect(s.precision).toBeGreaterThan(0.9);
 });

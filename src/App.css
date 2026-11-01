@@ -105,3 +105,21 @@ mark.restored { background: #dcfce7; color: #14532d; border-radius: 3px; box-sha
 .ocr-text { margin-top: 12px; }
 .ocr-text summary { cursor: pointer; font-size: 14px; font-weight: 600; color: var(--muted); }
 .ocr-text .output { height: auto; max-height: 320px; margin-top: 8px; }
+.audit-drop { min-height: 220px; }
+.audit-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+@media (max-width: 860px) { .audit-summary { grid-template-columns: repeat(2, 1fr); } }
+.big { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 2px; }
+.big b { font-size: 34px; letter-spacing: -0.02em; }
+.big span { color: var(--muted); font-size: 14px; }
+.big.bad { background: var(--secret-bg); border-color: #f7c3bc; }
+.big.bad b { color: var(--secret); }
+.big.good { background: #dcfce7; border-color: #bbf7d0; }
+.big.good b { color: var(--ok); }
+.audit-h { font-size: 15px; margin: 0 0 8px; }
+.audit-list { list-style: none; padding: 0; margin: 0 0 8px; display: grid; gap: 8px; }
+.audit-list li { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; }
+.audit-list li .what { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.audit-list li .what code { font-size: 13px; }
+.audit-list a.btn { text-decoration: none; white-space: nowrap; }
+.audit-list li.sev-secret { border-left: 4px solid var(--secret); }
+.audit-list li.sev-personal { border-left: 4px solid var(--personal); }

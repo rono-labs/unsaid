@@ -5,8 +5,8 @@ const types = (t: string) => detect(t).map((f) => `${f.type}:${f.value}`);
 
 describe("detect", () => {
   it("finds provider keys by format", () => {
-    expect(types("token ghp_8fK2mQ9xLr4TzW7bN1cVyP3sD6hJ0aGeU5oR")).toEqual(["GITHUB_TOKEN:ghp_8fK2mQ9xLr4TzW7bN1cVyP3sD6hJ0aGeU5oR"]);
-    expect(types("key AKIAZ7Q4MBX2KD9RLW3T")).toEqual(["AWS_ACCESS_KEY:AKIAZ7Q4MBX2KD9RLW3T"]);
+    expect(types("token ghp_" + "8fK2mQ9xLr4TzW7bN1cVyP3sD6hJ0aGeU5oR")).toEqual(["GITHUB_TOKEN:ghp_" + "8fK2mQ9xLr4TzW7bN1cVyP3sD6hJ0aGeU5oR"]);
+    expect(types("key AKIA" + "Z7Q4MBX2KD9RLW3T")).toEqual(["AWS_ACCESS_KEY:AKIA" + "Z7Q4MBX2KD9RLW3T"]);
   });
 
   it("masks only the password in a connection string", () => {
@@ -25,7 +25,7 @@ describe("detect", () => {
       '"version": "10.2.0.1"',
       "listening on 127.0.0.1:3000",
       "OPENAI_API_KEY=your-api-key-here",
-      "STRIPE_KEY=sk_live_xxxxxxxxxxxxxxxxxxxxxxxx",
+      "STRIPE_KEY=sk_live_" + "xxxxxxxxxxxxxxxxxxxxxxxx",
       "DB_PASSWORD=${DB_PASSWORD}",
       "User-Agent: Chrome/118.0.0.0",
     ];

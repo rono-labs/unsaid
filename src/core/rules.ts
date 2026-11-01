@@ -57,6 +57,9 @@ function assignedValue(value: string, m: RegExpExecArray): boolean {
   if (isPlaceholder(value)) return false;
   if (/^[a-z][a-z0-9+.\-]*:\/\//i.test(value)) return false;
   if (/^\d{1,9}$/.test(value)) return false;
+  if (/^[(\[{]/.test(value)) return false;
+  const isPassword = /pass|pwd/i.test(key);
+  if (!isPassword && /^[A-Za-z]+$/.test(value) && value.length < 16) return false;
   return true;
 }
 

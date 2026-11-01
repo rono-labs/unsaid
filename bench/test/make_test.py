@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Held-out test corpus generator (seed 2026). Writes cases.json next to this file."""
+"""Held-out test corpus generator (seed 2026). Writes cases.json.gz next to this file."""
 import json, random, string, base64, os, collections
 R = random.Random(2026)
 AN = string.ascii_letters + string.digits
@@ -460,7 +460,8 @@ for cs in CASES:
         if l["type"] == "IBAN": assert iban_ok(l["value"]), cs["id"]
 assert len(CASES) == 60, len(CASES)
 here = os.path.dirname(os.path.abspath(__file__))
-json.dump(CASES, open(os.path.join(here, "cases.json"), "w"), indent=1, ensure_ascii=False)
+import gzip
+with gzip.GzipFile(os.path.join(here, "cases.json.gz"), "wb", mtime=0) as f: f.write(json.dumps(CASES, indent=1, ensure_ascii=False).encode())
 cnt = collections.Counter(l["type"] for cs in CASES for l in cs["labels"])
 low = sum(1 for cs in CASES if len(cs["labels"]) <= 2 and (len(cs["labels"]) == 0 or "mixed" in cs["kind"] or True) and len(cs["labels"]) <= 1)
 print(len(CASES), "cases;", "zero-label:", sum(1 for cs in CASES if not cs["labels"]), "<=1 label:", low)
