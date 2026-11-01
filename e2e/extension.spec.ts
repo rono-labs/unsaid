@@ -28,6 +28,7 @@ test("extension masks a paste on chatgpt.com and restores the reply", async ({},
 
   await page.locator("#send").click();
   await expect(page.locator(".assistant")).toHaveText(`Rotate ${key} and tell dana@acme.io.`);
+  await expect(page.locator(".user")).toHaveText("GITHUB_TOKEN=<GITHUB_TOKEN_1>\nowner: <EMAIL_1>");
   if (process.env.SHOT_DIR) await page.screenshot({ path: `${process.env.SHOT_DIR}/06-extension-mock.png` });
   await context.close();
 });

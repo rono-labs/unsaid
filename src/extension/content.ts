@@ -10,6 +10,7 @@ const TAG_HINT = /[A-Z]_\d/;
 let vault = new Vault();
 let bypassUntil = 0;
 let replaying = false;
+const sent: string[] = [];
 
 async function loadVault() {
   try {
@@ -61,7 +62,9 @@ function onPaste(e: ClipboardEvent) {
   if (findings.length === 0) return;
   e.preventDefault();
   e.stopImmediatePropagation();
-  insertMasked(target, mask(text, findings, vault));
+  const masked = mask(text, findings, vault);
+  sent.push(masked);
+  insertMasked(target, masked);
   saveVault();
   toast(findings);
 }
@@ -111,6 +114,8 @@ function restoreIn(root: Node) {
   const nodes: Text[] = [];
   for (let n = walker.nextNode(); n; n = walker.nextNode()) nodes.push(n as Text);
   for (const node of nodes) {
+    const value = (node.nodeValue ?? "").trim();
+    if (value.length > 8 && sent.some((m) => m.includes(value))) continue;
     const r = restore(node.nodeValue ?? "", vault);
     if (r.restored.length === 0) continue;
     node.nodeValue = r.text;
