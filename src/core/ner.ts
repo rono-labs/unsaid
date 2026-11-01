@@ -27,7 +27,7 @@ export function chunkText(text: string, max = 900): { offset: number; text: stri
   return chunks.filter((c) => c.text.trim().length > 0);
 }
 
-export function tokensToFindings(text: string, offset: number, tokens: TokenOut[], minScore = 0.8): Finding[] {
+export function tokensToFindings(text: string, offset: number, tokens: TokenOut[], minMean = 0.6, minPeak = 0.85): Finding[] {
   const out: Finding[] = [];
   let cursor = 0;
   let cur: { type: string; start: number; end: number; scores: number[] } | null = null;
@@ -36,7 +36,7 @@ export function tokensToFindings(text: string, offset: number, tokens: TokenOut[
     if (!cur) return;
     const value = text.slice(cur.start, cur.end);
     const mean = cur.scores.reduce((a, b) => a + b, 0) / cur.scores.length;
-    if (mean >= minScore && keepEntity(value, cur.type)) {
+    if (mean >= minMean && Math.max(...cur.scores) >= minPeak && keepEntity(value, cur.type)) {
       out.push({
         start: offset + cur.start,
         end: offset + cur.end,
@@ -67,8 +67,8 @@ export function tokensToFindings(text: string, offset: number, tokens: TokenOut[
       continue;
     }
     const subword = t.word.startsWith("##");
-    const contiguous = cur && cur.type === type && /^[\s.'\-]*$/.test(text.slice(cur.end, start));
-    if (cur && contiguous && (tag === "I" || subword)) {
+    const contiguous = cur && /^[ \t.'\-]*$/.test(text.slice(cur.end, start));
+    if (cur && contiguous && (subword || (tag === "I" && (cur.type === type || /^\s?$/.test(text.slice(cur.end, start)))))) {
       cur.end = end;
       cur.scores.push(t.score);
     } else {
