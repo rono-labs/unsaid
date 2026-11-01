@@ -22,8 +22,10 @@ export function useModelFindings(text: string, enabled: boolean) {
       .catch(() => setStatus("error"));
   }, [enabled]);
 
+  const live = status === "ready" || status === "running";
+
   useEffect(() => {
-    if (!enabled || (status !== "ready" && status !== "running")) return;
+    if (!enabled || !live) return;
     if (!text.trim()) {
       setResult({ text, findings: [] });
       return;
@@ -44,7 +46,7 @@ export function useModelFindings(text: string, enabled: boolean) {
       cancelled = true;
       clearTimeout(t);
     };
-  }, [text, enabled, status === "ready" || status === "running"]);
+  }, [text, enabled, live]);
 
   const findings = enabled && result.text === text ? result.findings : [];
   return { status, progress, findings };

@@ -100,7 +100,7 @@ export function layout(lines: TessLine[]): OcrResult {
 function touching(a: TessWord, b: TessWord): boolean {
   const charWidth = (a.bbox.x1 - a.bbox.x0) / Math.max(1, a.text.length);
   const gap = b.bbox.x0 - a.bbox.x1;
-  const joiner = /[._@:\/\-=]$/.test(a.text) || /^[._@:\/\-=]/.test(b.text);
+  const joiner = /[._@:/\-=]$/.test(a.text) || /^[._@:/\-=]/.test(b.text);
   return joiner && gap < charWidth * 1.0;
 }
 

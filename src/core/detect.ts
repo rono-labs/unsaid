@@ -19,7 +19,7 @@ function isAssignmentRule(rule: Rule): boolean {
 }
 
 function looksFake(value: string): boolean {
-  return /([xX*#•.])\1{5,}/.test(value) || /your[\-_]|\.\.\.$|<[^>]+>|\$\{[^}]*\}|example|dummy|placeholder/i.test(value);
+  return /([xX*#•.])\1{5,}/.test(value) || /your[-_]|\.\.\.$|<[^>]+>|\$\{[^}]*\}|example|dummy|placeholder/i.test(value);
 }
 
 export function runRules(text: string): Finding[] {
@@ -58,10 +58,10 @@ export function runRules(text: string): Finding[] {
 
 function genericTokens(text: string): Finding[] {
   const out: Finding[] = [];
-  const re = /[A-Za-z0-9_\-+\/]{24,}={0,2}/g;
+  const re = /[A-Za-z0-9_\-+/]{24,}={0,2}/g;
   let m: RegExpExecArray | null;
   while ((m = re.exec(text))) {
-    const token = m[0].replace(/[.=]+$/, "").replace(/^[.\/]+/, "");
+    const token = m[0].replace(/[.=]+$/, "").replace(/^[./]+/, "");
     const start = m.index + m[0].indexOf(token);
     const before = text.slice(Math.max(0, start - 40), start);
     if (!looksLikeGenericSecret(token, before)) continue;
@@ -123,10 +123,10 @@ export function typeLabel(type: string): string {
 const OCR_PREFIX: [RegExp, string][] = [
   [/\bgh[pousr][ _]?\s?$/, "GITHUB_TOKEN"],
   [/\b[sr]k_(?:live|test)[ _]?\s?$/, "STRIPE_KEY"],
-  [/\bxox[abposr][ \-]?\s?$/, "SLACK_TOKEN"],
+  [/\bxox[abposr][ -]?\s?$/, "SLACK_TOKEN"],
   [/\bhf[ _]?\s?$/, "HF_TOKEN"],
   [/\bnpm[ _]?\s?$/, "NPM_TOKEN"],
-  [/\bglpat[ \-]?\s?$/, "GITLAB_TOKEN"],
+  [/\bglpat[ -]?\s?$/, "GITLAB_TOKEN"],
 ];
 
 export function repairOcrFindings(text: string, findings: Finding[]): Finding[] {

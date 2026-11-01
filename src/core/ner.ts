@@ -67,7 +67,7 @@ export function tokensToFindings(text: string, offset: number, tokens: TokenOut[
       continue;
     }
     const subword = t.word.startsWith("##");
-    const contiguous = cur && /^[ \t.'\-]*$/.test(text.slice(cur.end, start));
+    const contiguous = cur && /^[ \t.'-]*$/.test(text.slice(cur.end, start));
     if (cur && contiguous && (subword || (tag === "I" && (cur.type === type || /^\s?$/.test(text.slice(cur.end, start)))))) {
       cur.end = end;
       cur.scores.push(t.score);
@@ -85,7 +85,7 @@ const STOP = new Set(["AWS", "API", "GET", "POST", "JSON", "SQL", "HTTP", "URL",
 function keepEntity(value: string, type: string): boolean {
   const v = value.trim();
   if (v.length < 3 || STOP.has(v)) return false;
-  if (/[=:{}()<>\[\]\/\\_@$]/.test(v)) return false;
+  if (/[=:{}()<>[\]/\\_@$]/.test(v)) return false;
   if (!/^[A-ZÀ-ɏ]/.test(v)) return false;
   if (type === "PERSON" && /^[A-Z]{2,}$/.test(v)) return false;
   return true;

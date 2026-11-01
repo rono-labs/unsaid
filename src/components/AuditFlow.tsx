@@ -2,7 +2,7 @@ import { gunzipSync, strFromU8, unzipSync } from "fflate";
 import { useRef, useState } from "react";
 import { ROTATE, audit, parseExport, type AuditReport } from "../core/audit";
 import { typeLabel } from "../core/detect";
-import { preview } from "./Findings";
+import { preview } from "../lib/format";
 
 const SAMPLE = `${import.meta.env.BASE_URL}samples/chatgpt-export.json.gz`;
 

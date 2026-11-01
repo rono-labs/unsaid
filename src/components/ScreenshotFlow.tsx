@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { detect, repairOcrFindings, typeLabel } from "../core/detect";
 import type { Finding } from "../core/types";
 import { runNer } from "../lib/nerClient";
 import { Vault, mask } from "../core/mask";
 import { boxesFor, recognize, type Box, type OcrResult } from "../lib/ocr";
 import { CopyButton } from "./CopyButton";
-import { preview } from "./Findings";
+import { preview } from "../lib/format";
 
 interface Props {
   useModel: boolean;
@@ -68,8 +68,8 @@ export function ScreenshotFlow({ useModel, modelReady, custom }: Props) {
     };
   }, [image, useModel, modelReady, custom]);
 
-  const active = findings.filter((f) => !shown.includes(f.value));
-  const boxes = ocr ? boxesFor(active, ocr.words) : [];
+  const active = useMemo(() => findings.filter((f) => !shown.includes(f.value)), [findings, shown]);
+  const boxes = useMemo(() => (ocr ? boxesFor(active, ocr.words) : []), [ocr, active]);
 
   useEffect(() => {
     if (!image || !canvas.current) return;

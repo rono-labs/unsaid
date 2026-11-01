@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { typeLabel } from "../core/detect";
 import type { Category, Finding } from "../core/types";
+import { preview } from "../lib/format";
 
 interface Item {
   value: string;
@@ -11,12 +12,6 @@ interface Item {
 }
 
 const CATEGORY_NAME: Record<Category, string> = { secret: "Secrets", personal: "Personal", name: "Names & places" };
-
-export function preview(v: string): string {
-  const flat = v.replace(/\s+/g, " ");
-  if (flat.length <= 12) return `${flat.slice(0, 2)}•••`;
-  return `${flat.slice(0, 4)}…${flat.slice(-3)}`;
-}
 
 interface Props {
   findings: Finding[];
