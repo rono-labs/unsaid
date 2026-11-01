@@ -2,19 +2,17 @@
 
 Ask the AI anything without handing it your secrets.
 
-![Unsaid masking an .env file and restoring the AI's reply](docs/hero.png)
+![Unsaid: an API key and a password become placeholders before they reach the AI](docs/thumbnail.png)
 
 **Demo video:** {{video_url}}
 
 ## What it does
 
-- Finds API keys, passwords, tokens, emails, phone numbers, card numbers, IPs and OS usernames in anything you paste: logs, stack traces, `.env` files, emails, chat messages.
-- Swaps each one for a stable placeholder like `<GITHUB_TOKEN_1>`, so ChatGPT, Claude or Gemini can still reason about the text ("`<PASSWORD_1>` is wrong for `<IP_ADDRESS_1>`").
-- Paste the AI's reply back and Unsaid puts your real values back in, only on your screen.
-- Redacts screenshots: reads the text with on-device OCR and covers each secret with a labeled box, ready to download.
-- Audits your ChatGPT or Claude data export: lists every key you already pasted into a chat, which chats, when, and a link to revoke it.
-- Chrome extension: masks what you paste straight into ChatGPT, Claude or Gemini and swaps the placeholders in the replies back to your real values, in place.
-- Optional on-device language model (DistilBERT NER) to hide names, companies and places.
+- Finds API keys, passwords, tokens, emails, card numbers, IPs and usernames in anything you paste: logs, stack traces, `.env` files. Optional on-device NER adds names, companies and places.
+- Swaps each one for a stable placeholder like `<GITHUB_TOKEN_1>`, so ChatGPT, Claude or Gemini can still reason about the text, and puts your real values back into the reply, only on your screen.
+- Chrome extension: does both inside ChatGPT, Claude and Gemini. It masks on paste and restores replies in place.
+- Redacts screenshots with on-device OCR, ready to download.
+- Audits your ChatGPT or Claude data export for keys you already pasted, with a link to revoke each one.
 - Runs entirely in the browser tab. No account, no server, no analytics. The header shows a live count of requests to other sites.
 
 ## Try it
