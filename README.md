@@ -68,7 +68,7 @@ Measured on three synthetic corpora (`bench/`), 150 cases in total. Each was pro
 The first-run rows are the honest estimate for text it has never seen. Names are the weakest category (PERSON recall 13 of 20). The 1.000 row shows the misses were general error classes, not tuning to individual cases, but those sets are no longer unseen.
 
 ```bash
-npm run bench                         # rule detectors on both corpora
+npm run bench                         # rule detectors on all three corpora
 npm run fetch-model && npm run bench  # also scores rules + NER
 ```
 
@@ -83,10 +83,10 @@ MIT. See [LICENSE](LICENSE).
 ## Development
 
 ```bash
-npm test             # unit tests and benchmark
+npm test             # 19 unit and benchmark tests
 npm run fetch-model  # the NER end-to-end test uses the locally served model
 npm run build        # static site in dist/, deploy to any static host
-npx playwright test  # end-to-end tests against the production build
+npx playwright test  # 6 end-to-end tests on the production build; the extension test loads it into Chromium against a mock chat page served at chatgpt.com
 ```
 
 See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for the project layout and deployment notes.
