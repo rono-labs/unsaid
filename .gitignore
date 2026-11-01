@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+public/vendor
+public/models
+test-results
+playwright-report

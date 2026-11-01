@@ -91,7 +91,7 @@ export const RULES: Rule[] = [
   s("NPM_TOKEN", /\bnpm_[A-Za-z0-9]{36}\b/g),
   s("PYPI_TOKEN", /\bpypi-AgE[A-Za-z0-9_\-]{50,}/g),
   s("SENDGRID_KEY", /\bSG\.[A-Za-z0-9_\-]{16,32}\.[A-Za-z0-9_\-]{30,64}\b/g),
-  s("TWILIO_KEY", /\b(?:SK|AC)[0-9a-f]{32}\b/g),
+  s("TWILIO_KEY", /\bSK[0-9a-f]{32}\b/g),
   s("DISCORD_TOKEN", /\b[MNO][A-Za-z0-9_\-]{23,25}\.[A-Za-z0-9_\-]{6}\.[A-Za-z0-9_\-]{27,38}\b/g),
   s("JWT", /\beyJ[A-Za-z0-9_\-]{8,}\.[A-Za-z0-9_\-]{8,}\.[A-Za-z0-9_\-]{8,}/g),
   s(
@@ -110,6 +110,26 @@ export const RULES: Rule[] = [
     { group: 1, score: 0.96 },
   ),
   s("SECRET", /\b(?:Set-)?Cookie:[^\n]*?\b(?:session|sess|sid|token|auth|jwt|remember)[\w\-]*=([^;\s]{16,})/gi, { group: 1, score: 0.93 }),
+  s(
+    "SECRET",
+    /\b(?:x-api-key|api-key|x-auth-token|x-access-token|private-token|x-api-token|x-functions-key|ocp-apim-subscription-key)["']?\s*[:=]\s*["']?([A-Za-z0-9._~+\/\-]{8,})/gi,
+    { group: 1, score: 0.93, validate: (v) => !isPlaceholder(v) },
+  ),
+  s(
+    "SECRET",
+    /"key"\s*:\s*"[\w\-]*(?:api[_\-]?key|token|secret|password|auth)[\w\-]*"\s*,\s*"value"\s*:\s*"([^"\n]{6,})"/gi,
+    { group: 1, score: 0.93, validate: (v) => !isPlaceholder(v) && !/^\{\{.*\}\}$/.test(v) },
+  ),
+  s("PASSWORD", /\b(?:curl|wget|http|https)\b[^\n]*?\s(?:-u|--user)\s*["']?[^\s:"']+:([^\s"'@]{3,})/g, {
+    group: 1,
+    score: 0.94,
+    validate: (v) => !isPlaceholder(v),
+  }),
+  s("PASSWORD", /(?:^|\s)(?:[\w\-]+\.)*(?:key|psk|wpa_passphrase|wpa_psk)\s*=\s*["']?([^\s"']{8,})/gm, {
+    group: 1,
+    score: 0.85,
+    validate: (v, m) => !isPlaceholder(v) && /(?:wireless|wifi|wlan|wpa|psk)/i.test(m[0] + v) || /psk|wpa/i.test(m[0]),
+  }),
   s("SECRET", /\bBearer\s+([A-Za-z0-9._~+\/\-]{16,}=*)/g, { group: 1, score: 0.95 }),
   s(
     "URL_SECRET",
@@ -187,16 +207,13 @@ export const RULES: Rule[] = [
   }),
   s("IP_ADDRESS", /(?<![\w.])(?:\d{1,3}\.){3}\d{1,3}(?!\w|\.\d)/g, {
     score: 0.9,
-    validate: (v, m, text) => ipv4Valid(v) && !versionContext(text, m.index, m.index + v.length),
+    validate: (v, m, text) =>
+      ipv4Valid(v) && !versionContext(text, m.index, m.index + v.length) && !(/\.0$/.test(v) && text[m.index + v.length] === "/"),
   }),
-  s(
-    "IP_ADDRESS",
-    /(?<![\w:])(?:[0-9A-Fa-f]{1,4}:){2,7}(?::|(?::[0-9A-Fa-f]{1,4}){1,6}|[0-9A-Fa-f]{1,4})(?![\w:])|(?<![\w:])::(?:[0-9A-Fa-f]{1,4}:){1,6}[0-9A-Fa-f]{1,4}(?![\w:])/g,
-    {
-      score: 0.88,
-      validate: (v) => /[a-f]/i.test(v) || v.includes("::") ? ipv6Valid(v) && v.split(":").length >= 4 : false,
-    },
-  ),
+  s("IP_ADDRESS", /(?<![\w:.])[0-9A-Fa-f]{0,4}(?::[0-9A-Fa-f]{0,4}){2,7}(?![\w:])/g, {
+    score: 0.88,
+    validate: (v) => (/[a-f]/i.test(v) || v.includes("::")) && ipv6Valid(v),
+  }),
   s("USERNAME", /(?:\/home\/|\/Users\/|[A-Za-z]:\\{1,2}Users\\{1,2})([A-Za-z0-9_][A-Za-z0-9_.\- ]{0,31}?)(?=[\\\/]|\s|$|["'`:])/g, {
     group: 1,
     score: 0.9,

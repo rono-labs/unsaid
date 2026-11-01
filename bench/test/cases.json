@@ -1,0 +1,792 @@
+[
+ {
+  "id": "t01",
+  "kind": "gha_log",
+  "text": "##[group]Run aws s3 sync ./dist s3://prod-assets\nenv:\n  AWS_ACCESS_KEY_ID: AKIA2A5UNZQWWY6EVF98\n  AWS_SECRET_ACCESS_KEY: LK6sNdVU72lZ/o2+YH19dCqgn28s9Dp68GZN9Z3z\n  GITHUB_TOKEN: ***\n##[endgroup]\n2025-03-14T09:12:44.8812345Z fatal: could not read Username for 'https://github.com': terminal prompts disabled\n2025-03-14T09:12:44.9Z git clone https://x-access-token:ghp_huG8GP38g4o5MNJAYKJ1UXXFWXLCpaNfhs0g@github.com/acme-co/api.git\nError: Process completed with exit code 128. (commit 98014efb68fefd19ae3e8e5df28fb36d4e020e26)",
+  "labels": [
+   {
+    "value": "AKIA2A5UNZQWWY6EVF98",
+    "type": "AWS_ACCESS_KEY"
+   },
+   {
+    "value": "LK6sNdVU72lZ/o2+YH19dCqgn28s9Dp68GZN9Z3z",
+    "type": "AWS_SECRET_KEY"
+   },
+   {
+    "value": "ghp_huG8GP38g4o5MNJAYKJ1UXXFWXLCpaNfhs0g",
+    "type": "GITHUB_TOKEN"
+   }
+  ]
+ },
+ {
+  "id": "t02",
+  "kind": "vercel_build",
+  "text": "Vercel CLI 33.5.1\nCloning github.com/jdoe/portfolio (Branch: main, Commit: af47f49)\nRunning \"install\" command: `npm install`...\nadded 312 packages in 14s\nEnvironment: DATABASE_URL=postgres://app_user:phNcWI9rQWOwja@ep-cool-rain-123456.us-east-2.aws.neon.tech/neondb?sslmode=require\nBuild Completed in /vercel/output [41s]\nDeployed to https://portfolio-xyz.vercel.app [deployment dpl_MoRTeJzcm]",
+  "labels": [
+   {
+    "value": "phNcWI9rQWOwja",
+    "type": "PASSWORD"
+   }
+  ]
+ },
+ {
+  "id": "t03",
+  "kind": "netlify_build",
+  "text": "12:01:03 PM: Netlify Build\n12:01:03 PM: ❯ Version @netlify/build 29.20.4\n12:01:04 PM: NETLIFY_AUTH_TOKEN=wfg5y9cqBruxXI21kXNxSwH7-1K7wP94pJmBDal6\n12:01:05 PM: SENDGRID_API_KEY=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\n12:01:09 PM: Functions bundling complete in 3.2s\n12:01:10 PM: Site is live ✨ (deploy 939da0a6-1353-4314-ab90-d4bdcc7d7450)",
+  "labels": [
+   {
+    "value": "wfg5y9cqBruxXI21kXNxSwH7-1K7wP94pJmBDal6",
+    "type": "SECRET"
+   },
+   {
+    "value": "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",
+    "type": "SENDGRID_KEY"
+   }
+  ]
+ },
+ {
+  "id": "t04",
+  "kind": "firebase_config",
+  "text": "const firebaseConfig = {\n  apiKey: \"AIzaYGsDccJ91HOrlweHROhbF8hCtZUDJRzVT66\",\n  authDomain: \"todo-app-7c1f2.firebaseapp.com\",\n  projectId: \"todo-app-7c1f2\",\n  storageBucket: \"todo-app-7c1f2.appspot.com\",\n  messagingSenderId: \"991415289044\",\n  appId: \"1:842121510489:web:965d4f0bd1529b843069\"\n};\nconst app = initializeApp(firebaseConfig);",
+  "labels": [
+   {
+    "value": "AIzaYGsDccJ91HOrlweHROhbF8hCtZUDJRzVT66",
+    "type": "GOOGLE_API_KEY"
+   }
+  ]
+ },
+ {
+  "id": "t05",
+  "kind": "supabase",
+  "text": "NEXT_PUBLIC_SUPABASE_URL=https://abcdefghijklmnop.supabase.co\nNEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNibW1ycXp1dmZxZGNleG1rcmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTIwMDAwMDAsImV4cCI6MjAyNzAwMDAwMH0.fyuLLKTrXyb92TvdwOsudoaViVMBtFqnP-njWHMpS8_\nSUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRycWhsdm9zbGNjeWN6cHlqaXl2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxMjAwMDAwMCwiZXhwIjoyMDI3MDAwMDAwfQ.CvP3QP_ZOwz7CSS0WBt4q3IQpOI4HsIDQspIL6ZZcQ0\n# why does RLS still block my insert??",
+  "labels": [
+   {
+    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNibW1ycXp1dmZxZGNleG1rcmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTIwMDAwMDAsImV4cCI6MjAyNzAwMDAwMH0.fyuLLKTrXyb92TvdwOsudoaViVMBtFqnP-njWHMpS8_",
+    "type": "JWT"
+   },
+   {
+    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRycWhsdm9zbGNjeWN6cHlqaXl2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxMjAwMDAwMCwiZXhwIjoyMDI3MDAwMDAwfQ.CvP3QP_ZOwz7CSS0WBt4q3IQpOI4HsIDQspIL6ZZcQ0",
+    "type": "JWT"
+   }
+  ]
+ },
+ {
+  "id": "t06",
+  "kind": "py_tb_windows",
+  "text": "Traceback (most recent call last):\n  File \"C:\\Users\\kbhatt22\\AppData\\Local\\Programs\\Python\\Python311\\lib\\site-packages\\requests\\adapters.py\", line 487, in send\n    resp = conn.urlopen(\n  File \"C:\\Users\\kbhatt22\\Documents\\cs101\\hw4\\fetch.py\", line 18, in <module>\n    main()\nrequests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded\nPython 3.11.4 on Windows 10.0.19045.3803",
+  "labels": [
+   {
+    "value": "kbhatt22",
+    "type": "USERNAME"
+   }
+  ]
+ },
+ {
+  "id": "t07",
+  "kind": "py_tb_mac",
+  "text": "  File \"/Users/priya.nair/dev/flask-demo/app.py\", line 52, in login\n    user = db.query(User).filter_by(email=form.email.data).first()\n  File \"/Users/priya.nair/.pyenv/versions/3.10.6/lib/python3.10/site-packages/sqlalchemy/orm/query.py\", line 2870\nsqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: user\nRunning on http://127.0.0.1:5000",
+  "labels": [
+   {
+    "value": "priya.nair",
+    "type": "USERNAME"
+   }
+  ]
+ },
+ {
+  "id": "t08",
+  "kind": "jupyter",
+  "text": "{\n \"cell_type\": \"code\",\n \"execution_count\": 3,\n \"metadata\": {},\n \"outputs\": [],\n \"source\": [\n  \"import os\\n\",\n  \"os.environ['OPENAI_API_KEY'] = 'sk-proj-Rm_A2TQhZwbIGqQ189RbeCpIPcA6JVkybmtQC7AvNk1rndI1'\\n\",\n  \"login(token='hf_clJUGo86EQQvvwuMEqF4u1qcPFibEZxq1W')\\n\",\n  \"df = pd.read_csv('data.csv')\"\n ]\n}",
+  "labels": [
+   {
+    "value": "sk-proj-Rm_A2TQhZwbIGqQ189RbeCpIPcA6JVkybmtQC7AvNk1rndI1",
+    "type": "OPENAI_KEY"
+   },
+   {
+    "value": "hf_clJUGo86EQQvvwuMEqF4u1qcPFibEZxq1W",
+    "type": "HF_TOKEN"
+   }
+  ]
+ },
+ {
+  "id": "t09",
+  "kind": "tfvars",
+  "text": "region     = \"eu-west-1\"\naccess_key = \"AKIA3MXR6ZTND0E68T4F\"\nsecret_key = \"P+ORUxjwGXnBd7EA2qBI+rPUYyttsqheJMwrITq6\"\ndb_password = \"klSdWlRjAPNF6I9bto\"\ninstance_type = \"t3.micro\"\nvpc_cidr = \"10.0.0.0/16\"\n",
+  "labels": [
+   {
+    "value": "AKIA3MXR6ZTND0E68T4F",
+    "type": "AWS_ACCESS_KEY"
+   },
+   {
+    "value": "P+ORUxjwGXnBd7EA2qBI+rPUYyttsqheJMwrITq6",
+    "type": "AWS_SECRET_KEY"
+   },
+   {
+    "value": "klSdWlRjAPNF6I9bto",
+    "type": "PASSWORD"
+   }
+  ]
+ },
+ {
+  "id": "t10",
+  "kind": "npmrc",
+  "text": "registry=https://registry.npmjs.org/\n//registry.npmjs.org/:_authToken=npm_Gx4IfDRVAj5ujTGcEadgwL2TS00qvWbkGm30\n@myorg:registry=https://npm.pkg.github.com\nalways-auth=true",
+  "labels": [
+   {
+    "value": "npm_Gx4IfDRVAj5ujTGcEadgwL2TS00qvWbkGm30",
+    "type": "NPM_TOKEN"
+   }
+  ]
+ },
+ {
+  "id": "t11",
+  "kind": "pypirc",
+  "text": "[distutils]\nindex-servers =\n    pypi\n[pypi]\nusername = __token__\npassword = pypi-AgEIcHlwaS5vcmc9tOVC78JMEf45nVmhWfwTRNSkhlnPBm589BbJjP56OYrsVxzaEHD4r1wFigY\n[testpypi]\nusername = devguy\npassword = l23zvEC-BVu226UA",
+  "labels": [
+   {
+    "value": "pypi-AgEIcHlwaS5vcmc9tOVC78JMEf45nVmhWfwTRNSkhlnPBm589BbJjP56OYrsVxzaEHD4r1wFigY",
+    "type": "PASSWORD"
+   },
+   {
+    "value": "l23zvEC-BVu226UA",
+    "type": "PASSWORD"
+   }
+  ]
+ },
+ {
+  "id": "t12",
+  "kind": "postman",
+  "text": "{\n  \"info\": {\n    \"name\": \"Orders API\",\n    \"_postman_id\": \"7a8d0b53-b625-4ec3-a3dc-0761858b2851\"\n  },\n  \"item\": [\n    {\n      \"name\": \"list\",\n      \"request\": {\n        \"method\": \"GET\",\n        \"header\": [\n          {\n            \"key\": \"Authorization\",\n            \"value\": \"Bearer sCT6WgPGk77SmJLekfi5nX69ctOrdnYlvGcf\"\n          },\n          {\n            \"key\": \"x-api-key\",\n            \"value\": \"23a49f7ae7c7ad1f75e63fcf0f6c1e49\"\n          }\n        ],\n        \"url\": {\n          \"raw\": \"{{base}}/orders\"\n        }\n      }\n    }\n  ]\n}",
+  "labels": [
+   {
+    "value": "sCT6WgPGk77SmJLekfi5nX69ctOrdnYlvGcf",
+    "type": "SECRET"
+   },
+   {
+    "value": "23a49f7ae7c7ad1f75e63fcf0f6c1e49",
+    "type": "SECRET"
+   }
+  ]
+ },
+ {
+  "id": "t13",
+  "kind": "har",
+  "text": "{\"request\":{\"method\":\"GET\",\"url\":\"https://app.example.org/dashboard\",\"headers\":[{\"name\":\"Cookie\",\"value\":\"_ga=GA1.2.799225541.1700000000; session=nT1OZTJh5CJQcw949SD18GO7c97529mP; theme=dark\"},{\"name\":\"User-Agent\",\"value\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36\"}]},\"time\":143.2,\"startedDateTime\":\"2025-01-09T18:22:01.331Z\"}",
+  "labels": [
+   {
+    "value": "nT1OZTJh5CJQcw949SD18GO7c97529mP",
+    "type": "SECRET"
+   }
+  ]
+ },
+ {
+  "id": "t14",
+  "kind": "nginx_log",
+  "text": "203.0.113.57 - - [12/Mar/2025:10:14:22 +0000] \"GET /wp-login.php HTTP/1.1\" 404 153 \"-\" \"Mozilla/5.0 (X11; Linux x86_64) Chrome/120.0.0.0 Safari/537.36\"\n198.51.100.23 - alice [12/Mar/2025:10:14:25 +0000] \"POST /api/v1/login HTTP/1.1\" 200 512 \"-\" \"curl/8.4.0\"\n127.0.0.1 - - [12/Mar/2025:10:14:26 +0000] \"GET /healthz HTTP/1.1\" 200 2 \"-\" \"kube-probe/1.28\"\n192.168.1.44 - - [12/Mar/2025:10:14:30 +0000] \"GET /static/app.js HTTP/1.1\" 304 0",
+  "labels": [
+   {
+    "value": "203.0.113.57",
+    "type": "IP_ADDRESS"
+   },
+   {
+    "value": "198.51.100.23",
+    "type": "IP_ADDRESS"
+   },
+   {
+    "value": "192.168.1.44",
+    "type": "IP_ADDRESS"
+   }
+  ]
+ },
+ {
+  "id": "t15",
+  "kind": "discord_chat",
+  "text": "[11:02] mira: the slack bot stopped posting after deploy\n[11:03] dev_tom: did you rotate the token?\n[11:03] mira: no, still xoxb-632451487640-418029505049-fkPernasNPcE7qe4SUIkJOHL in the config lol\n[11:04] dev_tom: pls dont paste that here\n[11:05] mira: oops. Anyway ping Sarah Whitfield, she owns it",
+  "labels": [
+   {
+    "value": "xoxb-632451487640-418029505049-fkPernasNPcE7qe4SUIkJOHL",
+    "type": "SLACK_TOKEN"
+   },
+   {
+    "value": "Sarah Whitfield",
+    "type": "PERSON"
+   }
+  ]
+ },
+ {
+  "id": "t16",
+  "kind": "slack_webhook",
+  "text": "Alerts not firing. Here's the notifier:\nrequests.post(\"https://hooks.slack.com/services/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\", json={\"text\": \"build failed\"})\nStatus 404 no_service",
+  "labels": [
+   {
+    "value": "https://hooks.slack.com/services/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",
+    "type": "SLACK_WEBHOOK"
+   }
+  ]
+ },
+ {
+  "id": "t17",
+  "kind": "resume",
+  "text": "Ananya Krishnamurthy\nFlat 4B, Lake View Apartments, Bengaluru, Karnataka 560034\n+91 98450 12367 | ananya.krishnamurthy@gmail.com\n\nEXPERIENCE\nSoftware Intern, Infosys Limited - Pune (Jun 2024 - Aug 2024)\nBuilt REST APIs in Spring Boot; reduced latency by 30%.\nEDUCATION\nB.Tech Computer Science, PES University, GPA 8.9/10",
+  "labels": [
+   {
+    "value": "Ananya Krishnamurthy",
+    "type": "PERSON"
+   },
+   {
+    "value": "Bengaluru",
+    "type": "LOCATION"
+   },
+   {
+    "value": "+91 98450 12367",
+    "type": "PHONE"
+   },
+   {
+    "value": "ananya.krishnamurthy@gmail.com",
+    "type": "EMAIL"
+   },
+   {
+    "value": "Infosys Limited",
+    "type": "ORG"
+   },
+   {
+    "value": "Pune",
+    "type": "LOCATION"
+   },
+   {
+    "value": "PES University",
+    "type": "ORG"
+   }
+  ]
+ },
+ {
+  "id": "t18",
+  "kind": "cover_letter",
+  "text": "Dear Hiring Manager at Stripe,\n\nI'm writing to apply for the Backend Engineer role. I live in Manchester and can be reached on +44 161 496 0873 or at liam.oconnor@outlook.com.\n\nSincerely,\nLiam O'Connor",
+  "labels": [
+   {
+    "value": "Stripe",
+    "type": "ORG"
+   },
+   {
+    "value": "Manchester",
+    "type": "LOCATION"
+   },
+   {
+    "value": "+44 161 496 0873",
+    "type": "PHONE"
+   },
+   {
+    "value": "liam.oconnor@outlook.com",
+    "type": "EMAIL"
+   },
+   {
+    "value": "Liam O'Connor",
+    "type": "PERSON"
+   }
+  ]
+ },
+ {
+  "id": "t19",
+  "kind": "doctor_note",
+  "text": "Riverside Pediatrics\nPatient: Marcus T. Delgado   DOB: 04/17/2009   SSN: 233-82-9467\nPlease excuse Marcus from PE until 10/02 due to a sprained ankle.\nDr. Helen Park, MD  Phone: (503) 555-0142",
+  "labels": [
+   {
+    "value": "Riverside Pediatrics",
+    "type": "ORG"
+   },
+   {
+    "value": "Marcus T. Delgado",
+    "type": "PERSON"
+   },
+   {
+    "value": "233-82-9467",
+    "type": "SSN"
+   },
+   {
+    "value": "Helen Park",
+    "type": "PERSON"
+   },
+   {
+    "value": "(503) 555-0142",
+    "type": "PHONE"
+   }
+  ]
+ },
+ {
+  "id": "t20",
+  "kind": "school_form",
+  "text": "FAFSA helper - student info\nName: Destiny Okafor\nSSN: 349-70-3440\nAddress: 2210 Maple Ave, Austin, TX 78704\nParent email: c.okafor@yahoo.com\nCan you help me fill the dependency section?",
+  "labels": [
+   {
+    "value": "Destiny Okafor",
+    "type": "PERSON"
+   },
+   {
+    "value": "349-70-3440",
+    "type": "SSN"
+   },
+   {
+    "value": "Austin",
+    "type": "LOCATION"
+   },
+   {
+    "value": "c.okafor@yahoo.com",
+    "type": "EMAIL"
+   }
+  ]
+ },
+ {
+  "id": "t21",
+  "kind": "bank_email",
+  "text": "Subject: Rent payment March\nHi Katrin,\nplease transfer 850 EUR to IBAN DE61 5278 1206 1769 5851 90, BIC COBADEFFXXX, reference RENT-5133.\nThanks, Jonas Weber",
+  "labels": [
+   {
+    "value": "Katrin",
+    "type": "PERSON"
+   },
+   {
+    "value": "DE61 5278 1206 1769 5851 90",
+    "type": "IBAN"
+   },
+   {
+    "value": "Jonas Weber",
+    "type": "PERSON"
+   }
+  ]
+ },
+ {
+  "id": "t22",
+  "kind": "order_json",
+  "text": "{\n  \"order_id\": \"ORD-33557996\",\n  \"tracking\": \"1Z3GP4K64HEIA7TJ0Q\",\n  \"payment\": {\n    \"number\": \"4316349992480055\",\n    \"exp\": \"09/28\",\n    \"cvv\": \"417\"\n  },\n  \"ship_to\": {\n    \"name\": \"Hannah Berg\",\n    \"city\": \"Seattle\"\n  },\n  \"email\": \"hberg.shop@proton.me\"\n}",
+  "labels": [
+   {
+    "value": "4316349992480055",
+    "type": "CREDIT_CARD"
+   },
+   {
+    "value": "Hannah Berg",
+    "type": "PERSON"
+   },
+   {
+    "value": "Seattle",
+    "type": "LOCATION"
+   },
+   {
+    "value": "hberg.shop@proton.me",
+    "type": "EMAIL"
+   }
+  ]
+ },
+ {
+  "id": "t23",
+  "kind": "router_config",
+  "text": "wireless.radio0.ssid='HomeNet-5G'\nwireless.radio0.key='0kgNJbnnSsTW'\ndhcp.lan.ip=192.168.0.1\nhost laptop { hardware ethernet 0e:94:c0:e3:37:ae; fixed-address 192.168.0.23; }\nhost printer { hardware ethernet 2C:8E:E9:8E:DF:9A; fixed-address 192.168.0.40; }\nwan_ip=86.14.201.9",
+  "labels": [
+   {
+    "value": "0kgNJbnnSsTW",
+    "type": "PASSWORD"
+   },
+   {
+    "value": "192.168.0.1",
+    "type": "IP_ADDRESS"
+   },
+   {
+    "value": "0e:94:c0:e3:37:ae",
+    "type": "MAC_ADDRESS"
+   },
+   {
+    "value": "192.168.0.23",
+    "type": "IP_ADDRESS"
+   },
+   {
+    "value": "2C:8E:E9:8E:DF:9A",
+    "type": "MAC_ADDRESS"
+   },
+   {
+    "value": "192.168.0.40",
+    "type": "IP_ADDRESS"
+   },
+   {
+    "value": "86.14.201.9",
+    "type": "IP_ADDRESS"
+   }
+  ]
+ },
+ {
+  "id": "t24",
+  "kind": "k8s_secret",
+  "text": "apiVersion: v1\nkind: Secret\nmetadata:\n  name: api-creds\ntype: Opaque\nstringData:\n  DB_PASSWORD: zo3SQukZgoyiMvPIznNJ\n  STRIPE_WEBHOOK_SECRET: whsec_t6IIySqw37CplGtcVN0mtk2BQLiCyOFR\n  LOG_LEVEL: debug",
+  "labels": [
+   {
+    "value": "zo3SQukZgoyiMvPIznNJ",
+    "type": "PASSWORD"
+   },
+   {
+    "value": "whsec_t6IIySqw37CplGtcVN0mtk2BQLiCyOFR",
+    "type": "SECRET"
+   }
+  ]
+ },
+ {
+  "id": "t25",
+  "kind": "env_local",
+  "text": "NEXT_PUBLIC_API_URL=http://localhost:3000/api\nNEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_ZQ19NGw1wWyHoaAHByN56x28\nSTRIPE_SECRET_KEY=sk_live_dNtVcZMGvJt1AoSO4I4188Gs\nNEXTAUTH_SECRET=FWTdnEBw+Y8u3yVdkmoBYp6Sm1EPNami\nNEXTAUTH_URL=http://localhost:3000",
+  "labels": [
+   {
+    "value": "sk_live_dNtVcZMGvJt1AoSO4I4188Gs",
+    "type": "STRIPE_KEY"
+   },
+   {
+    "value": "pk_test_ZQ19NGw1wWyHoaAHByN56x28",
+    "type": "STRIPE_KEY"
+   },
+   {
+    "value": "FWTdnEBw+Y8u3yVdkmoBYp6Sm1EPNami",
+    "type": "SECRET"
+   }
+  ]
+ },
+ {
+  "id": "t26",
+  "kind": "curl",
+  "text": "curl -u admin:WvQjDOAgPg https://staging.internal.acme.io/api/users\ncurl -X POST https://api.example.com/v2/jobs -H \"x-api-key: 6fa532b74ee3d420ed2ef1efb31d5d28\" -d '{\"id\":1}'",
+  "labels": [
+   {
+    "value": "WvQjDOAgPg",
+    "type": "PASSWORD"
+   },
+   {
+    "value": "6fa532b74ee3d420ed2ef1efb31d5d28",
+    "type": "SECRET"
+   }
+  ]
+ },
+ {
+  "id": "t27",
+  "kind": "intl_phones",
+  "text": "Support contacts:\nUK: +44 20 7946 0321\nIndia: +91 98765 43210\nGermany: +49 30 901820\nCall Ms. Fischer before 5pm.",
+  "labels": [
+   {
+    "value": "+44 20 7946 0321",
+    "type": "PHONE"
+   },
+   {
+    "value": "+91 98765 43210",
+    "type": "PHONE"
+   },
+   {
+    "value": "+49 30 901820",
+    "type": "PHONE"
+   },
+   {
+    "value": "Fischer",
+    "type": "PERSON"
+   }
+  ]
+ },
+ {
+  "id": "t28",
+  "kind": "ipv6",
+  "text": "ip -6 addr:\n  inet6 2001:db8:85a3::8a2e:370:7334/64 scope global\n  inet6 fe80::1c2b:3dff:fe4a:9b10/64 scope link\n  inet6 ::1/128 scope host\ndefault via fe80::1 dev eth0",
+  "labels": [
+   {
+    "value": "2001:db8:85a3::8a2e:370:7334",
+    "type": "IP_ADDRESS"
+   },
+   {
+    "value": "fe80::1c2b:3dff:fe4a:9b10",
+    "type": "IP_ADDRESS"
+   },
+   {
+    "value": "fe80::1",
+    "type": "IP_ADDRESS"
+   }
+  ]
+ },
+ {
+  "id": "t29",
+  "kind": "stripe_hook",
+  "text": "stripe.WebhookSignatureVerificationError: No signatures found matching expected signature\nendpoint_secret = \"whsec_TIHpBgw8ka2jMMYtqXZBYgSox7WeA4Of\"\nclient = stripe.StripeClient(\"sk_test_KXNquB2N3LtoV0MHlHAqcJNq\")",
+  "labels": [
+   {
+    "value": "whsec_TIHpBgw8ka2jMMYtqXZBYgSox7WeA4Of",
+    "type": "SECRET"
+   },
+   {
+    "value": "sk_test_KXNquB2N3LtoV0MHlHAqcJNq",
+    "type": "STRIPE_KEY"
+   }
+  ]
+ },
+ {
+  "id": "t30",
+  "kind": "anthropic_twilio",
+  "text": "ANTHROPIC_API_KEY=sk-ant-api03-6L0HA4uTNHNoFazROpRZ27WnV35PWTbTXSG9bU07fcLgoQ3HXMGaABhjDwgU6ngLqn1DoinjXer4dK0V4yg1NtIvYgi60\nTWILIO_API_KEY=SKfe40934d68e46a59036ec2bc20b2876a\nTWILIO_ACCOUNT_SID=AC829327eb454683c8fb665bf2491b78f1",
+  "labels": [
+   {
+    "value": "sk-ant-api03-6L0HA4uTNHNoFazROpRZ27WnV35PWTbTXSG9bU07fcLgoQ3HXMGaABhjDwgU6ngLqn1DoinjXer4dK0V4yg1NtIvYgi60",
+    "type": "ANTHROPIC_KEY"
+   },
+   {
+    "value": "SKfe40934d68e46a59036ec2bc20b2876a",
+    "type": "TWILIO_KEY"
+   }
+  ]
+ },
+ {
+  "id": "t31",
+  "kind": "gitlab_github",
+  "text": "git remote add origin https://oauth2:glpat-NtI6YnANpH1j9OKMqgiL@gitlab.com/team/proj.git\nexport GH_TOKEN=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",
+  "labels": [
+   {
+    "value": "glpat-NtI6YnANpH1j9OKMqgiL",
+    "type": "GITLAB_TOKEN"
+   },
+   {
+    "value": "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",
+    "type": "GITHUB_TOKEN"
+   }
+  ]
+ },
+ {
+  "id": "t32",
+  "kind": "private_key",
+  "text": "ssh keeps rejecting me. my key:\n-----BEGIN RSA PRIVATE KEY-----\npTpHpF2CAJB6bpe8SwYqzMwN3K233zlYWVB+HOEQlyIxk6wCCN076fJLlfJ7RiX3\nO1lpJphqFPOCHIbKvJ9J6jqIIYbwYlVZaaihcfOqcc+gcn4gzt/zCeV5ezeN95m1\nZjnNZETkkaxdFEegNaAaaNvXz4l3/mRSwFfkr14flt58cR/wvAiyz+hq+m1pVprn\nL+cZ8ROHOh2YDQmY/1sO7zGlrIp6uWHC0YtvdwbrNttdLrZuC7dUfWhp5bMpOp7g\nnDDsRwXU3y8r7YermZnwmySZh6fcvqBZYQAHCq+LYOPeizUpgg3y+j8jpvICEUj1\nRUe0cnPGBnXjfydswSaunTuaVpkIrGoBKocrBZiDVqoqxwBWA+7+YfLbUNvKXPKt\n-----END RSA PRIVATE KEY-----\nand the server is deploy@build-01",
+  "labels": [
+   {
+    "value": "-----BEGIN RSA PRIVATE KEY-----\npTpHpF2CAJB6bpe8SwYqzMwN3K233zlYWVB+HOEQlyIxk6wCCN076fJLlfJ7RiX3\nO1lpJphqFPOCHIbKvJ9J6jqIIYbwYlVZaaihcfOqcc+gcn4gzt/zCeV5ezeN95m1\nZjnNZETkkaxdFEegNaAaaNvXz4l3/mRSwFfkr14flt58cR/wvAiyz+hq+m1pVprn\nL+cZ8ROHOh2YDQmY/1sO7zGlrIp6uWHC0YtvdwbrNttdLrZuC7dUfWhp5bMpOp7g\nnDDsRwXU3y8r7YermZnwmySZh6fcvqBZYQAHCq+LYOPeizUpgg3y+j8jpvICEUj1\nRUe0cnPGBnXjfydswSaunTuaVpkIrGoBKocrBZiDVqoqxwBWA+7+YfLbUNvKXPKt\n-----END RSA PRIVATE KEY-----",
+    "type": "PRIVATE_KEY"
+   }
+  ]
+ },
+ {
+  "id": "t33",
+  "kind": "signed_url",
+  "text": "Download link expired:\nhttps://cdn.example.com/files/report.pdf?X-Amz-Expires=300&X-Amz-Signature=84ed825f98ecc18e277c1ba09cbe0d1ad8776e5cfe30c989c917e50ad74dc0fa\nhttps://api.example.com/export?format=csv&token=yGL8ywfAUtIdFJHlcQ84pKBkZlcL&page=2",
+  "labels": [
+   {
+    "value": "84ed825f98ecc18e277c1ba09cbe0d1ad8776e5cfe30c989c917e50ad74dc0fa",
+    "type": "URL_SECRET"
+   },
+   {
+    "value": "yGL8ywfAUtIdFJHlcQ84pKBkZlcL",
+    "type": "URL_SECRET"
+   }
+  ]
+ },
+ {
+  "id": "t34",
+  "kind": "slack_user",
+  "text": "SLACK_USER_TOKEN=xoxp-85703188534-73933855884-89069577863-a7f2300fd005450f02d4895f41c48862\n# channel C32R1YRNKNH",
+  "labels": [
+   {
+    "value": "xoxp-85703188534-73933855884-89069577863-a7f2300fd005450f02d4895f41c48862",
+    "type": "SLACK_TOKEN"
+   }
+  ]
+ },
+ {
+  "id": "t35",
+  "kind": "compose",
+  "text": "services:\n  db:\n    image: postgres:16.2\n    environment:\n      POSTGRES_PASSWORD: BSE5CCMkfsfSx19n\n    ports: [\"5432:5432\"]\n  web:\n    build: .\n    depends_on: [db]\n    ports: [\"8080:80\"]\n    extra_hosts: [\"db.local:10.20.30.4\"]",
+  "labels": [
+   {
+    "value": "BSE5CCMkfsfSx19n",
+    "type": "PASSWORD"
+   },
+   {
+    "value": "10.20.30.4",
+    "type": "IP_ADDRESS"
+   }
+  ]
+ },
+ {
+  "id": "t36",
+  "kind": "jwt_debug",
+  "text": "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.LM4Y4rSwieABvjq3Y1uv7lCypwI-lVdqVtxh-LvRXP_\n\"Why does jwt.verify throw invalid signature?\" Request id 6f3fc69a-4d1d-48a0-a229-b9d1db9a10e8",
+  "labels": [
+   {
+    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.LM4Y4rSwieABvjq3Y1uv7lCypwI-lVdqVtxh-LvRXP_",
+    "type": "JWT"
+   }
+  ]
+ },
+ {
+  "id": "t37",
+  "kind": "pkg_lock",
+  "text": "    \"node_modules/lodash\": {\n      \"version\": \"4.17.21\",\n      \"resolved\": \"https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz\",\n      \"integrity\": \"sha512-pTuROwA5ankgvtsVhA5l7SSp1yEHJB86rJKGnsEhuzS1+bJ+RCMZV7OUE1QhHpGpfyaZW3H4dW7D46Mx1aeTSA==\"\n    },\n    \"node_modules/react\": { \"version\": \"18.2.0\", \"integrity\": \"sha512-ieybhwWqiBfBvbu130anXIul3ibXbYUOsMwpbr79uQvSklDUxT2da34m7imLcQ77jOvm48VjziUFnYsm3CJ2gQ==\" }",
+  "labels": []
+ },
+ {
+  "id": "t38",
+  "kind": "docker_digests",
+  "text": "FROM node:20.11.1-alpine@sha256:1dad7386b8c31ebce3f48cc9254058a4a05bee2fcf8c3febafadd0bb96df1fa6\ndocker pull ghcr.io/acme/web@sha256:2c589e2fe86d8164022e5416aea1a1ffea9bf203c5664e2f8a386a33a6fe6ccf\ndocker ps: container 9f29e647258b  0.0.0.0:8080->80/tcp\nhealthcheck: curl http://localhost:3000/health",
+  "labels": []
+ },
+ {
+  "id": "t39",
+  "kind": "data_uri",
+  "text": "<img src=\"data:image/png;base64,iVBORw0KGgoRfn1OnNY5YqABpdyFNSOWFGeaT6ZbGSsL2kzlKrykJUlp8PKVvEmRbpMDJhJyrwjKMZcya14tx5a8SYYuErLtZzbCqWxL3EaCRLnIp/Fp7qo5ltWaYh2GFdM\" alt=\"logo\">\n<script src=\"https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.js\"></script>\nbody { margin: 0 }",
+  "labels": []
+ },
+ {
+  "id": "t40",
+  "kind": "win_ua",
+  "text": "OS Name: Microsoft Windows 10 Pro\nOS Version: 10.0.19045.3803 Build 19045\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.2210.91\nnode v20.10.0, npm 10.2.3",
+  "labels": []
+ },
+ {
+  "id": "t41",
+  "kind": "env_example",
+  "text": "# copy to .env\nOPENAI_API_KEY=your-api-key-here\nSTRIPE_SECRET_KEY=sk_live_...\nGITHUB_TOKEN=<TOKEN>\nDB_PASSWORD=${DB_PASSWORD}\nJWT_SECRET=xxxxxxxxxxxxxxxx\nconst key = process.env.STRIPE_KEY;",
+  "labels": []
+ },
+ {
+  "id": "t42",
+  "kind": "bad_cards",
+  "text": "Test cards that keep failing validation:\n4654908982338434\n5059061922755354\nOrder #4587086063 tracking 9400 1118 9922 5316 5642 00\nInvoice INV-2025-9162",
+  "labels": []
+ },
+ {
+  "id": "t43",
+  "kind": "git_log",
+  "text": "commit 89b2ab652e16d26e607eb4d0afd1a36fc34a75af\nAuthor: build bot\nDate:   Tue Mar 4 11:22:09 2025 +0000\n    bump deps\ncommit a7e1f6001c5ee74d88a5f97d0863193f5c2845a3\n    request id a42cafce-b4d0-4b2b-a675-0ef1372eaf0c\n    trace 13ccfc98-ee7f-4d3e-aed1-6946cadc15d7",
+  "labels": []
+ },
+ {
+  "id": "t44",
+  "kind": "isbn_ts",
+  "text": "Reading list:\nISBN 978-0-13-468599-1  Effective Java\nISBN-13: 978-1-4919-5017-3\nLogged 2025-02-11T08:15:00Z, epoch 1739261700, duration 00:03:12.450",
+  "labels": []
+ },
+ {
+  "id": "t45",
+  "kind": "localhost_logs",
+  "text": "[vite] dev server running at:\n  > Local:   http://localhost:5173/\n  > Network: http://0.0.0.0:5173/\nlistening on 127.0.0.1:8000\nredis ready on [::1]:6379\npostgres port 5432, mongo port 27017",
+  "labels": []
+ },
+ {
+  "id": "t46",
+  "kind": "readme_placeholders",
+  "text": "## Setup\nSet `STRIPE_API_KEY=sk_test_xxxxxxxx` and `export SLACK_TOKEN=xoxb-your-token`.\nIn code: `client = OpenAI(api_key=os.environ[\"OPENAI_API_KEY\"])`\nThen run `npm start` (v1.2.3.4 of the CLI).",
+  "labels": []
+ },
+ {
+  "id": "t47",
+  "kind": "k8s_clean",
+  "text": "apiVersion: apps/v1\nkind: Deployment\nspec:\n  replicas: 3\n  template:\n    spec:\n      containers:\n      - name: api\n        image: registry.local/api@sha256:ea8e83a9ff666e97dc6098c323763f51a9093b653df0e9862e7dfb25f5bbada3\n        ports: [{containerPort: 8080}]\n        env:\n        - name: DB_PASSWORD\n          valueFrom: {secretKeyRef: {name: api-creds, key: db}}",
+  "labels": []
+ },
+ {
+  "id": "t48",
+  "kind": "py_plain",
+  "text": "def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a\nprint([fib(i) for i in range(10)])  # why is this O(n)?",
+  "labels": []
+ },
+ {
+  "id": "t49",
+  "kind": "sql_orders",
+  "text": "SELECT id, order_no FROM orders WHERE order_no IN ('A-8377127','A-6201249') AND created_at > '2025-01-01 00:00:00';\n-- shipment 1Z5I0CDFIDLYYL23N0 delayed",
+  "labels": []
+ },
+ {
+  "id": "t50",
+  "kind": "requirements",
+  "text": "numpy==1.26.4\npandas>=2.1.0,<3\ntorch==2.2.1+cu121\nDjango~=4.2.11\npython 3.12.2",
+  "labels": []
+ },
+ {
+  "id": "t51",
+  "kind": "mixed_one_email",
+  "text": "trace_id edcdf2cf-62d8-4380-a6fe-9c549b018e39\nspan 0f5dbb196f8904b5\nSent report to ops.team@northwind-traders.com at 2025-03-01 02:00:00\nstatus=ok bytes=2048 port=443",
+  "labels": [
+   {
+    "value": "ops.team@northwind-traders.com",
+    "type": "EMAIL"
+   }
+  ]
+ },
+ {
+  "id": "t52",
+  "kind": "mixed_one_ip",
+  "text": "Pinging 10.4.2.19 ... ok\ndocker0 172.17.0.1/16\nsha: 3d1fd7da6b319f1ed27fa18f3c54c5953e0ef9a8\nversion 2.0.1.77",
+  "labels": [
+   {
+    "value": "10.4.2.19",
+    "type": "IP_ADDRESS"
+   },
+   {
+    "value": "172.17.0.1",
+    "type": "IP_ADDRESS"
+   }
+  ]
+ },
+ {
+  "id": "t53",
+  "kind": "mixed_one_pw",
+  "text": "Hi, my wordpress admin login is not working.\nsha256 of backup: 8a445a087a2ed186962e42c6ac3d5208317a59feb611b15febe9f21203146416\nlogin: admin / password: KR1iJQVOZ564\nRunning PHP 8.2.15 on port 8081",
+  "labels": [
+   {
+    "value": "KR1iJQVOZ564",
+    "type": "PASSWORD"
+   }
+  ]
+ },
+ {
+  "id": "t54",
+  "kind": "git_user_path",
+  "text": "$ git status\nOn branch feature/login\nhint: /home/dylan_ho/projects/webapp/.git/index.lock exists\nHEAD is now at 1db8ff2 fix typo",
+  "labels": [
+   {
+    "value": "dylan_ho",
+    "type": "USERNAME"
+   }
+  ]
+ },
+ {
+  "id": "t55",
+  "kind": "tf_plan_clean",
+  "text": "# aws_instance.web will be created\n  + instance_type = \"t3.micro\"\n  + ami           = \"ami-0c55b159cbfafe1f0\"\n  + vpc_id        = \"vpc-0a1b2c3d4e5f6a7b8\"\nPlan: 3 to add, 0 to change, 0 to destroy.",
+  "labels": []
+ },
+ {
+  "id": "t56",
+  "kind": "sha_plus_jwt",
+  "text": "build 9599538737aff4307aec3a61ab43323df4a813ad ok\nrefresh_token cache: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1X2oxYVB1diIsInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxODkzNDU2MDAwfQ.DtqQc_glG0U51iq2TrGlzmpIXwfAvRFr8mWyArQnegv\netag W/\"e53d32533c89bb82af16807979230f02\" ",
+  "labels": [
+   {
+    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1X2oxYVB1diIsInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxODkzNDU2MDAwfQ.DtqQc_glG0U51iq2TrGlzmpIXwfAvRFr8mWyArQnegv",
+    "type": "JWT"
+   }
+  ]
+ },
+ {
+  "id": "t57",
+  "kind": "plain_chat",
+  "text": "Can you explain the difference between a mutex and a semaphore? I have an OS exam on Friday and my notes from lecture 7 are confusing. An example with producer/consumer would help.",
+  "labels": []
+ },
+ {
+  "id": "t58",
+  "kind": "math_hw",
+  "text": "Problem 3: Solve 3x^2 - 12x + 9 = 0. Then find the area between y = x^2 and y = 4 from x = 0 to x = 2. Show steps. Due 11:59pm.",
+  "labels": []
+ },
+ {
+  "id": "t59",
+  "kind": "java_trace",
+  "text": "Exception in thread \"main\" java.lang.NullPointerException\n\tat com.example.App.run(App.java:42)\n\tat com.example.App.main(App.java:17)\nCaused by: java.net.ConnectException: Connection refused (localhost:9200)\nJava 17.0.9+9, Maven 3.9.6",
+  "labels": []
+ },
+ {
+  "id": "t60",
+  "kind": "api_json_hashes",
+  "text": "{\"id\":\"8f841909-20b7-4a12-a3ca-41179c840691\",\"checksum\":\"ec93b49fe0a77cac411330ea71f003b6f303e4f3e549a918b472626004d8813d\",\"build\":\"4.8.2.1\",\"created\":\"2025-03-02T10:00:00.000Z\",\"email\":\"deepa.rao@iitb.ac.in\"}",
+  "labels": [
+   {
+    "value": "deepa.rao@iitb.ac.in",
+    "type": "EMAIL"
+   }
+  ]
+ }
+]

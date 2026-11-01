@@ -18,6 +18,10 @@ function isAssignmentRule(rule: Rule): boolean {
   return rule.group === undefined && rule.pattern.source.includes("(?:=>|:=|[:=])");
 }
 
+function looksFake(value: string): boolean {
+  return /([xX*#•.])\1{5,}/.test(value) || /your[\-_]|\.\.\.$|<[^>]+>|\$\{[^}]*\}|example|dummy|placeholder/i.test(value);
+}
+
 export function runRules(text: string): Finding[] {
   const out: Finding[] = [];
   for (const rule of RULES) {
@@ -36,7 +40,7 @@ export function runRules(text: string): Finding[] {
       if (!span || value === undefined) continue;
       if (isAssignmentRule(rule) && !assignedValue(value, m)) continue;
       if (rule.validate && !rule.validate(value, m, text)) continue;
-      if (rule.category === "secret" && rule.type !== "PRIVATE_KEY" && /([xX*#•.])\1{5,}/.test(value)) continue;
+      if (rule.category === "secret" && rule.type !== "PRIVATE_KEY" && looksFake(value)) continue;
       out.push({
         start: span[0],
         end: span[1],
@@ -54,7 +58,7 @@ export function runRules(text: string): Finding[] {
 
 function genericTokens(text: string): Finding[] {
   const out: Finding[] = [];
-  const re = /[A-Za-z0-9_\-+\/=.]{24,}/g;
+  const re = /[A-Za-z0-9_\-+\/]{24,}={0,2}/g;
   let m: RegExpExecArray | null;
   while ((m = re.exec(text))) {
     const token = m[0].replace(/[.=]+$/, "").replace(/^[.\/]+/, "");
