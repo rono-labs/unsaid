@@ -27,3 +27,5 @@ public/vendor
 public/models
 test-results
 playwright-report
+dist-extension
+public/unsaid-extension.zip

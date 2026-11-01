@@ -17,6 +17,9 @@ test("masks a .env file and restores the AI reply", async ({ page }) => {
   const errors = trackErrors(page);
   await page.goto("/");
   await expect(page.getByRole("heading", { name: "Unsaid" })).toBeVisible();
+  const zip = await page.request.get(await page.getByRole("link", { name: "Get the Chrome extension" }).getAttribute("href") ?? "");
+  expect(zip.ok()).toBe(true);
+  expect((await zip.body()).subarray(0, 2).toString()).toBe("PK");
   await page.getByRole("button", { name: ".env file" }).click();
   const out = page.getByTestId("masked-output");
   await expect(out).toContainText("<GITHUB_TOKEN_1>");

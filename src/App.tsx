@@ -35,6 +35,16 @@ export default function App() {
         puts the real values back into the answer. Everything runs in this tab.
       </p>
 
+      <div className="ext">
+        <div>
+          <b>Skip the copy and paste.</b> The Unsaid extension masks what you paste into ChatGPT, Claude and Gemini and shows
+          your real values in the replies.
+        </div>
+        <a className="btn" href={`${import.meta.env.BASE_URL}unsaid-extension.zip`} download>
+          Get the Chrome extension
+        </a>
+      </div>
+
       <nav className="tabs" role="tablist">
         <button role="tab" aria-selected={tab === "text"} className={tab === "text" ? "on" : ""} onClick={() => setTab("text")}>
           Text

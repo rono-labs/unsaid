@@ -13,6 +13,7 @@ Ask the AI anything without handing it your secrets.
 - Paste the AI's reply back and Unsaid puts your real values back in, only on your screen.
 - Redacts screenshots: reads the text with on-device OCR and covers each secret with a labeled box, ready to download.
 - Audits your ChatGPT or Claude data export: lists every key you already pasted into a chat, which chats, when, and a link to revoke it.
+- Chrome extension: masks what you paste straight into ChatGPT, Claude or Gemini and swaps the placeholders in the replies back to your real values, in place.
 - Optional on-device language model (DistilBERT NER) to hide names, companies and places.
 - Runs entirely in the browser tab. No account, no server, no analytics. The header shows a live count of requests to other sites.
 
@@ -27,6 +28,8 @@ Keep <OPENAI_KEY_1> server-side and email <EMAIL_1> if it needs rotating.
 ```
 
 The restored panel shows the real key and email. For screenshots, open the **Screenshot** tab and click **Try a sample screenshot**. For the audit, open **Audit my chats** and click **Try a sample ChatGPT export** (14 synthetic chats, 8 leaked keys).
+
+Chrome extension: download `unsaid-extension.zip` from the app header (or run `npm run build` and use `dist-extension/`), unzip it, open `chrome://extensions`, turn on Developer mode, click **Load unpacked** and pick the folder. Paste a `.env` file into ChatGPT and watch the toast.
 
 Run it locally (Node 20+):
 
@@ -50,6 +53,7 @@ chat export (.zip/.json) ─► your messages only ─► same detectors ─► 
 - **Vault** (`src/core/mask.ts`): each distinct value gets one placeholder per session, so the same key is always `<STRIPE_KEY_1>`. Restore tolerates the ways models rewrite placeholders (`[EMAIL_1]`, `EMAIL_1`, `&lt;EMAIL_1&gt;`). The vault and your text live in `sessionStorage` (plain text, this tab only) and disappear when you close the tab or press Clear.
 - **Names** (`src/workers/ner.worker.ts`): Transformers.js runs a quantized DistilBERT NER model on ONNX Runtime Web, off the main thread.
 - **Audit** (`src/core/audit.ts`): parses ChatGPT (`mapping` tree) and Claude (`chat_messages`) exports, unzips in the browser with fflate, scans only user messages, and groups each leaked value with its chats and first/last dates.
+- **Extension** (`src/extension/content.ts`): a content script catches the paste event in the chat box, masks with the same core, and re-dispatches the masked text so the site's editor inserts it normally. A MutationObserver restores placeholders in new messages by editing text nodes in place, and the CSS Custom Highlight API tints restored values without touching the site's DOM structure. The vault sits in `chrome.storage.session`, which is memory-only. Ctrl+Shift+V pastes unmasked.
 - **Screenshots** (`src/lib/ocr.ts`): Tesseract.js reads words with bounding boxes, words split by OCR are re-joined by pixel gap, and findings map back to boxes drawn on a canvas.
 
 ### Accuracy

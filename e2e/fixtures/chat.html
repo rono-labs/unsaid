@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <body>
+    <main id="thread"></main>
+    <div id="prompt" contenteditable="true" style="min-height: 60px; border: 1px solid #ccc"></div>
+    <textarea id="plain"></textarea>
+    <button id="send">Send</button>
+    <script>
+      const prompt = document.getElementById("prompt");
+      prompt.addEventListener("paste", (e) => {
+        e.preventDefault();
+        prompt.textContent += e.clipboardData.getData("text/plain");
+      });
+      document.getElementById("send").addEventListener("click", () => {
+        const text = prompt.textContent;
+        const user = document.createElement("p");
+        user.className = "user";
+        user.textContent = text;
+        document.getElementById("thread").append(user);
+        prompt.textContent = "";
+        const tags = [...text.matchAll(/<([A-Z_]+_\d+)>/g)].map((m) => m[1]);
+        setTimeout(() => {
+          const reply = document.createElement("p");
+          reply.className = "assistant";
+          reply.textContent = "Rotate <" + tags[0] + "> and tell <" + tags[tags.length - 1] + ">.";
+          document.getElementById("thread").append(reply);
+        }, 200);
+      });
+    </script>
+  </body>
+</html>

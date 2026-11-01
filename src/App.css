@@ -124,3 +124,5 @@ mark.restored { background: #dcfce7; color: #14532d; border-radius: 3px; box-sha
 .audit-list li.sev-secret { border-left: 4px solid var(--secret); }
 .audit-list li.sev-personal { border-left: 4px solid var(--personal); }
 .hint { font-size: 13px; color: var(--muted); border: 1px dashed var(--line); border-radius: 8px; padding: 6px 10px; white-space: nowrap; }
+.ext { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 12px 16px; margin: 0 0 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); font-size: 14px; max-width: 860px; }
+.ext a.btn { text-decoration: none; white-space: nowrap; }

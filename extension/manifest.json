@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Unsaid",
+  "version": "0.1.0",
+  "description": "Hides API keys, passwords and personal details when you paste into ChatGPT, Claude or Gemini, and shows the real values in the replies.",
+  "icons": { "128": "icon-128.png" },
+  "background": { "service_worker": "background.js" },
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*", "https://claude.ai/*", "https://gemini.google.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
