@@ -24,6 +24,11 @@ async function create() {
   const local = await hasLocalModel();
   env.allowLocalModels = local;
   env.allowRemoteModels = !local;
+  if (local) {
+    // Private windows keep the HTTP cache in memory and abort the 66 MB model download when it doesn't fit,
+    // so same-origin model files skip the HTTP cache and keep the Cache Storage copy.
+    env.fetch = (input, init) => fetch(input, { ...init, cache: "no-store" });
+  }
   return pipeline("token-classification", MODEL_ID, {
     dtype: "q8",
     device: "wasm",

@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="color-scheme" content="light dark" />
     <title>Chat</title>
     <style>
       body { margin: 0; font: 15px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; background: #fff; color: #1f2328; }
@@ -15,6 +16,13 @@
       #prompt:empty::before { content: "Message"; color: #8b949e; font-family: system-ui, sans-serif; font-size: 15px; }
       #send { border: 0; background: #1f2328; color: #fff; border-radius: 999px; width: 34px; height: 34px; font-size: 16px; cursor: pointer; }
       #plain { position: absolute; left: -9999px; }
+      @media (prefers-color-scheme: dark) {
+        body { background: #14161c; color: #e8eaef; }
+        #thread .user { background: #20232c; }
+        .box { border-color: #2c303a; background: #1b1e26; box-shadow: 0 4px 18px rgb(0 0 0 / 0.4); }
+        #prompt:empty::before { color: #8b909c; }
+        #send { background: #e8eaef; color: #14161c; }
+      }
     </style>
   </head>
   <body>
