@@ -41,5 +41,7 @@ export const loadNer = () => send("load").then(() => undefined);
 export const runNer = (text: string) => send("run", text);
 export function onNerProgress(fn: (p: number) => void) {
   progressListeners.add(fn);
-  return () => progressListeners.delete(fn);
+  return () => {
+    progressListeners.delete(fn);
+  };
 }

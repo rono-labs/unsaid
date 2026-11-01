@@ -7,7 +7,13 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "e2e": "playwright test",
+    "bench": "vitest run bench",
+    "predev": "node scripts/copy-assets.mjs",
+    "prebuild": "node scripts/copy-assets.mjs",
+    "fetch-model": "node scripts/fetch-model.mjs"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.3.2",

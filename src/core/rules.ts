@@ -214,6 +214,7 @@ export const RULES: Rule[] = [
     score: 0.88,
     validate: (v) => (/[a-f]/i.test(v) || v.includes("::")) && ipv6Valid(v),
   }),
+  s("USERNAME", /^(?:\$\s)?([a-z_][a-z0-9_\-]{1,31})@[\w.\-]+:\s?~/gm, { group: 1, score: 0.9 }),
   s("USERNAME", /(?:\/home\/|\/Users\/|[A-Za-z]:\\{1,2}Users\\{1,2})([A-Za-z0-9_][A-Za-z0-9_.\- ]{0,31}?)(?=[\\\/]|\s|$|["'`:])/g, {
     group: 1,
     score: 0.9,

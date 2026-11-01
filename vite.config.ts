@@ -1,7 +1,13 @@
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+/// <reference types="vitest/config" />
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-// https://vite.dev/config/
 export default defineConfig({
+  base: process.env.BASE_PATH ?? "/",
   plugins: [react()],
-})
+  worker: { format: "es" },
+  test: {
+    include: ["src/**/*.test.ts", "bench/**/*.test.ts"],
+    testTimeout: 120_000,
+  },
+});

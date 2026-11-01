@@ -43,12 +43,42 @@ interface TessLine {
   words: TessWord[];
 }
 
+async function prepare(image: Blob): Promise<{ canvas: HTMLCanvasElement; scale: number }> {
+  const bitmap = await createImageBitmap(image);
+  const scale = bitmap.width < 1600 ? 2 : 1;
+  const canvas = document.createElement("canvas");
+  canvas.width = bitmap.width * scale;
+  canvas.height = bitmap.height * scale;
+  const ctx = canvas.getContext("2d", { willReadFrequently: true })!;
+  ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const px = img.data;
+  let sum = 0;
+  for (let i = 0; i < px.length; i += 4) {
+    const y = 0.299 * px[i] + 0.587 * px[i + 1] + 0.114 * px[i + 2];
+    px[i] = px[i + 1] = px[i + 2] = y;
+    sum += y;
+  }
+  if (sum / (px.length / 4) < 128) for (let i = 0; i < px.length; i += 4) px[i] = px[i + 1] = px[i + 2] = 255 - px[i];
+  ctx.putImageData(img, 0, 0);
+  return { canvas, scale };
+}
+
 export async function recognize(image: Blob, onProgress?: (p: number) => void): Promise<OcrResult> {
   const w = await getWorker(onProgress);
-  const { data } = await w.recognize(image, {}, { blocks: true });
+  const { canvas, scale } = await prepare(image);
+  const { data } = await w.recognize(canvas, {}, { blocks: true });
   const lines: TessLine[] = [];
   for (const block of data.blocks ?? [])
-    for (const para of block.paragraphs) for (const line of para.lines) lines.push(line as unknown as TessLine);
+    for (const para of block.paragraphs)
+      for (const line of para.lines as unknown as TessLine[])
+        lines.push({
+          words: line.words.map((wd) => ({
+            text: wd.text,
+            bbox: { x0: wd.bbox.x0 / scale, y0: wd.bbox.y0 / scale, x1: wd.bbox.x1 / scale, y1: wd.bbox.y1 / scale },
+          })),
+        });
   return layout(lines);
 }
 
@@ -58,13 +88,20 @@ export function layout(lines: TessLine[]): OcrResult {
   for (const line of lines) {
     const ws = line.words.filter((w) => w.text.trim());
     ws.forEach((w, i) => {
-      if (i > 0) text += " ";
+      if (i > 0 && !touching(ws[i - 1], w)) text += " ";
       words.push({ text: w.text, start: text.length, end: text.length + w.text.length, box: w.bbox });
       text += w.text;
     });
     text += "\n";
   }
   return { text, words };
+}
+
+function touching(a: TessWord, b: TessWord): boolean {
+  const charWidth = (a.bbox.x1 - a.bbox.x0) / Math.max(1, a.text.length);
+  const gap = b.bbox.x0 - a.bbox.x1;
+  const joiner = /[._@:\/\-=]$/.test(a.text) || /^[._@:\/\-=]/.test(b.text);
+  return joiner && gap < charWidth * 1.0;
 }
 
 export function boxesFor(findings: Finding[], words: OcrWord[]): { finding: Finding; box: Box }[] {

@@ -3,22 +3,43 @@ import { chunkText, tokensToFindings, type TokenOut } from "../core/ner";
 
 export const MODEL_ID = "onnx-community/distilbert-NER-ONNX";
 
-const base = new URL(import.meta.env.BASE_URL, self.location.origin).href;
-env.allowLocalModels = true;
+const base = import.meta.env.BASE_URL;
 env.localModelPath = `${base}models/`;
-env.allowRemoteModels = true;
-if (env.backends.onnx.wasm) env.backends.onnx.wasm.wasmPaths = `${base}vendor/ort/`;
+if (env.backends.onnx.wasm) env.backends.onnx.wasm.wasmPaths = new URL(`${base}vendor/ort/`, self.location.origin).href;
+
+let lastProgress = -1;
 
 let ready: Promise<TokenClassificationPipeline> | null = null;
 
-function load() {
-  ready ??= pipeline("token-classification", MODEL_ID, {
+async function hasLocalModel(): Promise<boolean> {
+  try {
+    const res = await fetch(`${env.localModelPath}${MODEL_ID}/config.json`, { method: "HEAD" });
+    return res.ok && !(res.headers.get("content-type") ?? "").includes("text/html");
+  } catch {
+    return false;
+  }
+}
+
+async function create() {
+  const local = await hasLocalModel();
+  env.allowLocalModels = local;
+  env.allowRemoteModels = !local;
+  return pipeline("token-classification", MODEL_ID, {
     dtype: "q8",
     device: "wasm",
     progress_callback: (p: { status: string; progress?: number; file?: string }) => {
-      if (p.status === "progress" && p.file?.endsWith(".onnx")) postMessage({ kind: "progress", progress: p.progress ?? 0 });
+      if (p.status !== "progress" || !p.file?.endsWith(".onnx")) return;
+      const pct = Math.floor(p.progress ?? 0);
+      if (pct !== lastProgress) {
+        lastProgress = pct;
+        postMessage({ kind: "progress", progress: pct });
+      }
     },
   }) as Promise<TokenClassificationPipeline>;
+}
+
+function load() {
+  ready ??= create();
   return ready;
 }
 

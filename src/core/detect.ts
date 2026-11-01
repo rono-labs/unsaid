@@ -119,3 +119,27 @@ export function detect(text: string, opts: { custom?: string[]; extra?: Finding[
 export function typeLabel(type: string): string {
   return TYPES[type]?.label ?? type;
 }
+
+const OCR_PREFIX: [RegExp, string][] = [
+  [/\bgh[pousr][ _]?\s?$/, "GITHUB_TOKEN"],
+  [/\b[sr]k_(?:live|test)[ _]?\s?$/, "STRIPE_KEY"],
+  [/\bxox[abposr][ \-]?\s?$/, "SLACK_TOKEN"],
+  [/\bhf[ _]?\s?$/, "HF_TOKEN"],
+  [/\bnpm[ _]?\s?$/, "NPM_TOKEN"],
+  [/\bglpat[ \-]?\s?$/, "GITLAB_TOKEN"],
+];
+
+export function repairOcrFindings(text: string, findings: Finding[]): Finding[] {
+  return findings.map((f) => {
+    if (f.type !== "SECRET") return f;
+    const before = text.slice(Math.max(0, f.start - 12), f.start);
+    for (const [re, type] of OCR_PREFIX) {
+      const m = before.match(re);
+      if (m) {
+        const start = f.start - m[0].length;
+        return { ...f, start, value: text.slice(start, f.end), type, score: 0.95 };
+      }
+    }
+    return f;
+  });
+}
