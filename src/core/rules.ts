@@ -172,7 +172,10 @@ export const RULES: Rule[] = [
   ),
   s("EMAIL", /\b[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,24}\b/g, {
     score: 0.97,
-    validate: (v) => !/^git@(?:github|gitlab|bitbucket)\./i.test(v) && !/\.(?:png|jpe?g|gif|svg|webp)$/i.test(v),
+    validate: (v, m, text) =>
+      !/^git@(?:github|gitlab|bitbucket)\./i.test(v) &&
+      !/\.(?:png|jpe?g|gif|svg|webp)$/i.test(v) &&
+      !/(?:message-id|in-reply-to|references)\s*:\s*[^\n]*<$/i.test(text.slice(Math.max(0, m.index - 200), m.index)),
   }),
   s("CREDIT_CARD", /(?<![\d\-])(?:\d[ \-]?){12,18}\d(?![\d\-])/g, {
     score: 0.95,
@@ -194,7 +197,7 @@ export const RULES: Rule[] = [
   }),
   s(
     "PHONE",
-    /(?<![\w\-+.\/:])(?:\+?1[ .\-]?)?(?:\([2-9]\d{2}\)|[2-9]\d{2})[ .\-]?[2-9]\d{2}[ .\-]\d{4}(?![\w\-.\/])/g,
+    /(?<![\w\-+.\/:])(?:\+?1[ .\-]?)?(?:\([2-9]\d{2}\)|[2-9]\d{2})[ .\-]?[2-9]\d{2}[ .\-]\d{4}(?![\w\-\/]|\.\d)/g,
     { score: 0.9 },
   ),
   s("PHONE", /(?<![\w+])\+(?:[2-9]\d{0,2})(?:[ .\-]?\(?\d{1,4}\)?){2,5}(?![\w\-])/g, {
@@ -204,6 +207,13 @@ export const RULES: Rule[] = [
       return n >= 9 && n <= 15;
     },
   }),
+  s("PHONE", /(?<![\w+])\+1[2-9]\d{2}[2-9]\d{6}(?!\d)/g, { score: 0.9 }),
+  s("PASSWORD", /\b(?:password|passcode|passwd|pw)\s+(?:is|was)\s*:?\s+["'`]?([^\s"'`]{4,}?)["'`]?(?=[\s,;)]|\.(?:\s|$)|$)/gim, {
+    group: 1,
+    score: 0.86,
+    validate: (v) => !isPlaceholder(v) && /[\d\W]/.test(v) && !/^(?:wrong|incorrect|correct|invalid|expired|required|not|too|the|my|a|an)$/i.test(v),
+  }),
+  s("PASSWORD", /^[^:\s#]+:(?:\d+|\*):[^:\s]+:[^:\s]+:(\S{4,})$/gm, { group: 1, score: 0.85, validate: (v) => !isPlaceholder(v) }),
   s("MAC_ADDRESS", /\b[0-9A-Fa-f]{2}(?:([:\-])[0-9A-Fa-f]{2})(?:\1[0-9A-Fa-f]{2}){4}\b/g, {
     score: 0.9,
     validate: (v) => !/^(?:00[:\-]){5}00$|^(?:ff[:\-]){5}ff$/i.test(v),
@@ -215,7 +225,11 @@ export const RULES: Rule[] = [
   }),
   s("IP_ADDRESS", /(?<![\w:.])[0-9A-Fa-f]{0,4}(?::[0-9A-Fa-f]{0,4}){2,7}(?![\w:])/g, {
     score: 0.88,
-    validate: (v) => (/[a-f]/i.test(v) || v.includes("::")) && ipv6Valid(v),
+    validate: (v) =>
+      (/[a-f]/i.test(v) || v.includes("::")) &&
+      v.split(":").filter(Boolean).length >= 2 &&
+      !/^ff[0-9a-f]{2}:/i.test(v) &&
+      ipv6Valid(v),
   }),
   s("USERNAME", /^(?:\$\s)?([a-z_][a-z0-9_\-]{1,31})@[\w.\-]+:\s?~/gm, { group: 1, score: 0.9 }),
   s("USERNAME", /(?:\/home\/|\/Users\/|[A-Za-z]:\\{1,2}Users\\{1,2})([A-Za-z0-9_][A-Za-z0-9_.\- ]{0,31}?)(?=[\\\/]|\s|$|["'`:])/g, {
@@ -231,7 +245,9 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 export function looksLikeGenericSecret(token: string, before: string): boolean {
   if (token.length < 24 || token.length > 200) return false;
   if (HEXISH.test(token) || UUID.test(token)) return false;
-  if (/(?:base64,|sha\d+[:\-]|sha512-|integrity["']?\s*[:=]\s*["']?|(?:certificate|cert|ca)[\w\-]*["']?\s*[:=]\s*["']?)$/i.test(before)) return false;
+  if (/^(?:sha\d+-|nonce-|AAAA[A-Za-z0-9+\/]{20}|LS0tLS1CRUdJTiBDRVJU|LS0tLS1CRUdJTiBQVUJMSUM)/.test(token)) return false;
+  if (/(?:ssh-(?:rsa|ed25519|dss)|ecdsa-sha2-nistp\d+)\s+$/.test(before)) return false;
+  if (/(?:base64,|sha\d+[:\-]|sha512-|nonce-|integrity["']?\s*[:=]\s*["']?|(?:certificate|cert|ca)[\w\-]*["']?\s*[:=]\s*["']?)$/i.test(before)) return false;
   if (!/[A-Z]/.test(token) || !/[a-z]/.test(token) || !/\d/.test(token)) return false;
   if (/^[A-Za-z]+(?:[_\-.\/][A-Za-z]+)*$/.test(token)) return false;
   if (/[\/]/.test(token) && /^[\w\-.]+(?:\/[\w\-.]+){2,}$/.test(token)) return false;

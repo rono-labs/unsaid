@@ -7,7 +7,7 @@ import { isRuleType, score, type Case } from "./score";
 const load = (name: string): Case[] =>
   JSON.parse(gunzipSync(readFileSync(new URL(`./${name}/cases.json.gz`, import.meta.url))).toString("utf8"));
 
-test.each(["corpus", "test"])("rule detectors on %s", (name) => {
+test.each(["corpus", "test", "final"])("rule detectors on %s", (name) => {
   const cases = load(name);
   const s = score(cases, (t) => detect(t), isRuleType);
   if (process.env.BENCH_OUT) writeFileSync(`${process.env.BENCH_OUT}-${name}.json`, JSON.stringify(s, null, 2));

@@ -42,7 +42,7 @@ npm run dev           # http://localhost:5173
 ## How it works
 
 ```
-paste ──► 43 rules, 32 data types (prefixes, checksums, context) ───┐
+paste ──► 46 rules, 32 data types (prefixes, checksums, context) ───┐
       └─► DistilBERT NER in a Web Worker (optional) ───────────────────┼─► resolve overlaps ─► Vault ─► masked text
 image ──► Tesseract OCR (grayscale, invert, 2x) ─► same detectors ─────┘                       │
 AI reply ─────────────────────────────────────────────────────────────────────────────────────► restore
@@ -58,15 +58,16 @@ chat export (.zip/.json) ─► your messages only ─► same detectors ─► 
 
 ### Accuracy
 
-Measured on two synthetic corpora (`bench/`), each produced by its own generator script that was written without access to the detector source. Real-looking fake secrets plus decoys: git SHAs, UUIDs, package-lock hashes, version numbers, placeholders, Luhn-failing card numbers.
+Measured on three synthetic corpora (`bench/`), 150 cases in total. Each was produced by its own generator script, written without access to the detector source or the other corpora. They contain real-looking fake secrets plus decoys: git SHAs, UUIDs, package-lock hashes, CSP nonces, SSH public keys, version numbers, placeholders, Luhn-failing card numbers.
 
 | Set | Cases | Precision | Recall |
 |---|---|---|---|
-| Held-out set, first run before any tuning on it (rules only) | 60 | 0.949 | 0.926 |
-| Both sets after fixing the error classes found (rules only) | 100 | 1.000 | 1.000 |
-| Held-out set with names via NER | 60 | 0.905 | 0.950 |
+| Final held-out set, first run, rules only | 50 | 0.954 | 0.954 |
+| Second set, first run, rules only | 60 | 0.949 | 0.926 |
+| All three after fixing the error classes found (rules only) | 150 | 1.000 | 0.991 |
+| Second set with names via NER | 60 | 0.905 | 0.950 |
 
-The first row is the honest estimate for text it has never seen. Names are the weakest category (PERSON recall 13 of 20).
+The first-run rows are the honest estimate for text it has never seen. Names are the weakest category (PERSON recall 13 of 20). The 1.000 row shows the misses were general error classes, not tuning to individual cases, but those sets are no longer unseen.
 
 ```bash
 npm run bench                         # rule detectors on both corpora

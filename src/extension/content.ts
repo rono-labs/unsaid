@@ -77,10 +77,10 @@ function toast(findings: Finding[]) {
     <style>
       .t { position: fixed; right: 20px; bottom: 20px; z-index: 2147483647; max-width: 360px; padding: 12px 14px;
         background: #14161c; color: #e8eaf0; border-radius: 12px; font: 13px/1.45 system-ui, sans-serif;
-        box-shadow: 0 8px 30px rgb(0 0 0 / 0.3); display: grid; gap: 4px; }
+        box-shadow: 0 8px 30px rgb(0 0 0 / 0.3); display: grid; gap: 4px; overflow: hidden; padding-left: 18px; }
       b { color: #fff; font-size: 14px; }
       .k { color: #aab0bd; }
-      .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 12px 0 0 12px; background: ${secrets ? "#ff6b57" : "#f5b840"}; }
+      .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: ${secrets ? "#ff6b57" : "#f5b840"}; }
       button { position: absolute; top: 6px; right: 8px; border: 0; background: none; color: #aab0bd; font-size: 16px; cursor: pointer; }
     </style>
     <div class="t" role="status"><span class="bar"></span>
